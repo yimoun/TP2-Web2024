@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="13.40" multi-file="no" uid="simp7fff14d0040a4f1db7428167a0dd6952">
+  <meta>
+    <name>diagrameBD</name>
+    <authors>Raphael Gagnon</authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type type-id="class" type="Class" />
+        <value>4</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="group" type="Group" />
+        <value>306</value>
+      </counter>
+      <counter>
+        <item-type type-id="class" type="Class" />
+        <value>5</value>
+      </counter>
+      <counter>
+        <item-type type-id="comment" type="Comment" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="constraint-connector" type="Constraint Connector" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="property" type="Property" />
+        <value>27</value>
+      </counter>
+      <counter>
+        <item-type type-id="relationship" type="Association" />
+        <value>8</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlClassDiagram</type>
+        <value>1</value>
+      </counter>
+    </diagrams>
+    <fields />
+  </counters>
+  <alias-groups />
+  <management uid="md-3e7e3bf319d84f5ca5ec93613fd73547" name="" task-id-sequence="0">
+    <working-schedule uid="ws-7c9045205a4442b3bbf7241077f4671a" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+    <persons>
+      <person id="">
+        <first-name>Raphael</first-name>
+        <last-name>Gagnon</last-name>
+        <role />
+        <e-mail>raphaelgagnon@cegep-chicoutimi.qc.ca</e-mail>
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+        <working-schedule uid="ws-b0d222414e524334b4195f5b5b171b6e" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+      </person>
+      <person id="">
+        <first-name>Raphael</first-name>
+        <last-name>Gagnon</last-name>
+        <role />
+        <e-mail>raphaelgagnon@cegep-chicoutimi.qc.ca</e-mail>
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+      </person>
+    </persons>
+    <teams />
+    <sprints />
+    <projects />
+    <modules />
+    <tasks />
+    <to-dos />
+  </management>
+  <glossary id="glsr-df106bf8521e4c35a539901c427a4c9a" />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+      <type-set file="UmlTypes.xml" />
+      <type-set file="UmlTypes.xml" />
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types />
+  </types>
+  <items>
+    <item id="cd6d408f8dd34a17a2bb71daae7c5d25" cid="PROP001" type="property" name="Id   {PK}" style-class="" owner="ae363e2bd747439684d535e1aab04b16" creator="" creation-date="09/03/2024 10:34:23" visibility="private">
+      <style style-name="Custom Style" shadow-type="smooth" shadow-offset="2,2" shadow-visible="true" shadow-color="#3A555555" shadow-radius="8" wrap-name-text="true" wrap-other-text="true" padding="2" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+        <text-style type="name" use-defaults="false" color="#FF555555" font="Segoe UI;11.25;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="text" use-defaults="false" color="#FF555555" font="Segoe UI;9.75;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+        <text-style type="tagged-value" use-defaults="false" color="#FF555555" font="Segoe UI;9.75;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <text-style type="stereotype" use-defaults="false" color="#FF555555" font="Segoe UI;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+        <background type="solid" colors="#FFF2F2F2,#FFF2F2F2" />
+        <border color="#FF555555" width="2" dash-style="Solid" />
+        <label-connector color="#80000000" width="1" dash-style="Dash" />
+        <alternate-styles>
+          <alternate-style style-name="Alternate" shadow-type="smooth" shadow-offset="2,2" shadow-visible="true" shadow-color="#322A2A2A" shadow-radius="8" wrap-name-text="true" wrap-other-text="true" padding="2" margin="1" glow-color="#FFFFFFFF" accuracy="0.9">
+            <text-style type="name" use-defaults="false" color="#FFE9E9E9" font="Segoe UI;11.25;B" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="part-header" use-defaults="false" color="#FF1E1E1E" font="Verdana;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="text" use-defaults="false" color="#FFE9E9E9" font="Segoe UI;9.75;" horizontal-alignment="left" vertical-alignment="center" shadow="false" />
+            <text-style type="tagged-value" use-defaults="false" color="#FFE9E9E9" font="Segoe UI;9.75;" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <text-style type="stereotype" use-defaults="false" color="#FFE9E9E9" font="Segoe UI;9;I" horizontal-alignment="center" vertical-alignment="center" shadow="false" />
+            <background type="solid" colors="#FF203D85,#FF203D85" />
+            <border color="#FF203D85" width="2" dash-style="Solid" />
+            <label-connector color="#80000000" width="1" dash-style="Dash" />
+          </alternate-style>
+        </alternate-styles>
+      </style>
+      <feature />
+      <structural-feature type="" type-id="" />
+      <property />
+    </item>
+  </items>
+  <models>
+    <model id="p314b8ba3d2f74d13988ce287eea57d18_824143048" name="Model1" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author>Raphael Gagnon</author>
+        </authors>
+        <description />
+        <creation-date>09/03/2024 10:12:47</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-class" id="p0b2da5b960aa42cbbaa0a2acee2c4062_415604056" name="ClassDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-23,-90">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author>Raphael Gagnon</author>
+          </authors>
+          <description />
+          <creation-date>09/03/2024 10:12:47</creation-date>
+          <change-date>09/03/2024 10:59:29</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="fa4838785e344b9ca7fb6402ff341cfd" cid="PROP026" type="property" name="attach varchar(100)" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 11:15:46" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="a215e93e754b4000b84b9106bebd849f" cid="PROP012" type="property" name="IdSujet" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:43:26" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="FK" />
+          </item>
+          <item id="77dc49b89c494408a3463a33ca3afec4" cid="REL004" type="relationship" name="" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:57:17" from="535321547a61493dbd1b108fd60e10fe" to="ae6a39c8efb943e0b2e83070c4638294" visibility="package">
+            <relation from="535321547a61493dbd1b108fd60e10fe" to="ae6a39c8efb943e0b2e83070c4638294" derived="false">
+              <start-role id="umlar-6fdfb1b8-1615-4376-97fe-b242cc771fe4" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
+              <end-role id="umlar-dd4ad520-253d-4361-aae9-49061fa75901" name="" multiplicity="0..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="eb42da1bfe92427cae564b9fbda147f5" cid="REL003" type="relationship" name="" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:47:08" from="8448bacb5d6c4fabb1d19daac7994799" to="ae6a39c8efb943e0b2e83070c4638294" visibility="package">
+            <relation from="8448bacb5d6c4fabb1d19daac7994799" to="ae6a39c8efb943e0b2e83070c4638294" derived="false">
+              <start-role id="umlar-a8d2f856-e111-4966-9d40-3092705fe3fb" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
+              <end-role id="umlar-caa92f0a-bd81-49d6-9e58-c9387c7830f3" name="" multiplicity="0..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="2049363941194c17b2a2ebac8ee4db8f" cid="REL007" type="relationship" name="" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:59:29" from="535321547a61493dbd1b108fd60e10fe" to="8448bacb5d6c4fabb1d19daac7994799" visibility="package">
+            <relation from="535321547a61493dbd1b108fd60e10fe" to="8448bacb5d6c4fabb1d19daac7994799" derived="false">
+              <start-role id="umlar-5c4da317-8e85-4229-8533-ebf815055a49" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
+              <end-role id="umlar-628494b5-4b97-4e31-851d-3b7515e2601b" name="" multiplicity="0..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="b67d610282654cf0a395896857b85712" cid="PROP009" type="property" name="IdAuteur" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:41:21" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="FK" />
+          </item>
+          <item id="ae363e2bd747439684d535e1aab04b16" cid="C001" type="class" name="Section" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:12:51" visibility="undefined">
+            <owned-items>
+              <owned-item ref="cd6d408f8dd34a17a2bb71daae7c5d25" />
+              <owned-item ref="6cdfd7e097564d19b658934f89858489" />
+              <owned-item ref="509473256d314e6a97a5646194b09030" />
+              <owned-item ref="cd6d408f8dd34a17a2bb71daae7c5d25" />
+            </owned-items>
+            <attributes>
+              <attribute id="a71fc041491634b99aa7c7c703ed715ca33" cid="PROP001" name="Id   {PK}" creation-date="09/03/2024 10:34:23" property-ref="cd6d408f8dd34a17a2bb71daae7c5d25" />
+              <attribute id="a8b1edc0595274da592739c26d22e10b8846" cid="PROP002" name="Titre   varchar(100)" creation-date="09/03/2024 10:35:17" property-ref="6cdfd7e097564d19b658934f89858489" />
+              <attribute id="ac5bfe8e80255427e8d475691a8b58c9d852" cid="PROP003" name="Description  varchar(200)" creation-date="09/03/2024 10:35:53" property-ref="509473256d314e6a97a5646194b09030" />
+            </attributes>
+            <source-codes>
+              <source-code language="ActionScript" />
+            </source-codes>
+          </item>
+          <item id="8448bacb5d6c4fabb1d19daac7994799" cid="C002" type="class" name="Sujet" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:13:08" visibility="undefined">
+            <owned-items>
+              <owned-item ref="f78e760eaf0f4672bc0f79aa48478259" />
+              <owned-item ref="cefbac80bc494397b7027bdc0d98b9db" />
+              <owned-item ref="648a107397c14d658074c7324c6572c4" />
+              <owned-item ref="38290cd5439c494cbdb708b3e4d34014" />
+              <owned-item ref="40fc02cc7fab47d08a37ffb45282ad23" />
+              <owned-item ref="66ee1158d93042679666e9c335ba1c4d" />
+              <owned-item ref="a7ac9b0e66a7440998baaa063a99e5fc" />
+            </owned-items>
+            <attributes>
+              <attribute id="a9d86c6b1525644be9eacb13074240caf345" cid="PROP007" name="Id" creation-date="09/03/2024 10:40:24" property-ref="f78e760eaf0f4672bc0f79aa48478259" />
+              <attribute id="afe6d7180a86946a885d24107ea96f48e57" cid="PROP008" name="Titre   varchar(100)" creation-date="09/03/2024 10:40:48" property-ref="cefbac80bc494397b7027bdc0d98b9db" />
+              <attribute id="abb22e322cb4b42f8ba706a001f0ca6b4504" cid="PROP010" name="auteur  varchar(100)" creation-date="09/03/2024 10:41:44" property-ref="648a107397c14d658074c7324c6572c4" />
+              <attribute id="a4e53c75ee8ee4c04ba8e477cfc8130a4672" cid="PROP011" name="DateCreation  DateTime" creation-date="09/03/2024 10:42:11" property-ref="38290cd5439c494cbdb708b3e4d34014" />
+              <attribute id="aa867a83520334e539d048f3b2e8bb4ab599" cid="PROP013" name="IdSection" creation-date="09/03/2024 10:45:47" property-ref="40fc02cc7fab47d08a37ffb45282ad23" />
+              <attribute id="a9759920375f447728a24e7b61812ff26421" cid="PROP014" name="IdMessagePrincipale" creation-date="09/03/2024 10:48:33" property-ref="66ee1158d93042679666e9c335ba1c4d" />
+              <attribute id="a8a53d8823af6456ca6f49d98af5a66a4673" cid="PROP023" name="IdAuteur" creation-date="09/03/2024 10:58:34" property-ref="a7ac9b0e66a7440998baaa063a99e5fc" />
+            </attributes>
+          </item>
+          <item id="f78e760eaf0f4672bc0f79aa48478259" cid="PROP007" type="property" name="Id" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:40:24" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="PK" />
+          </item>
+          <item id="9f9935ad7d4e48798e1e8ee0f1992d82" cid="REL002" type="relationship" name="" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:46:32" from="ae363e2bd747439684d535e1aab04b16" to="8448bacb5d6c4fabb1d19daac7994799" visibility="package">
+            <relation from="ae363e2bd747439684d535e1aab04b16" to="8448bacb5d6c4fabb1d19daac7994799" derived="false">
+              <start-role id="umlar-89f4a82c-797b-47a9-91ec-e4544a52cb1f" name="" multiplicity="1" navigability="" association-type="association" visibility="private" />
+              <end-role id="umlar-d2a5b70d-25e5-429f-82a9-8c10f04ed836" name="" multiplicity="1..*" navigability="" association-type="association" visibility="private" />
+            </relation>
+          </item>
+          <item id="0909336ab6af422ca99a3f1072d1a76e" cid="PROP015" type="property" name="NbLike  (int)" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:50:11" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="cefbac80bc494397b7027bdc0d98b9db" cid="PROP008" type="property" name="Titre   varchar(100)" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:40:48" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="e755800afdd449a29c135e74b6d7ce48" cid="PROP021" type="property" name="MotDePasse  varchar(100)" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 10:54:04" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="ae6a39c8efb943e0b2e83070c4638294" cid="C003" type="class" name="Message" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:13:13" visibility="undefined">
+            <owned-items>
+              <owned-item ref="237d8e33a6034077976e43a914c7fed0" />
+              <owned-item ref="16e3a9087a9145f1be0a3d7f3b3c0ea8" />
+              <owned-item ref="a62152f179b5496eb14f8c90a9561492" />
+              <owned-item ref="b67d610282654cf0a395896857b85712" />
+              <owned-item ref="a215e93e754b4000b84b9106bebd849f" />
+              <owned-item ref="0909336ab6af422ca99a3f1072d1a76e" />
+              <owned-item ref="561a276e0d3f492581e7a2f616412d3f" />
+              <owned-item ref="263f7437fe5d48d4bec18c46ebc59514" />
+              <owned-item ref="fa4838785e344b9ca7fb6402ff341cfd" />
+              <owned-item ref="fa4838785e344b9ca7fb6402ff341cfd" />
+              <owned-item ref="a215e93e754b4000b84b9106bebd849f" />
+              <owned-item ref="b67d610282654cf0a395896857b85712" />
+              <owned-item ref="0909336ab6af422ca99a3f1072d1a76e" />
+            </owned-items>
+            <attributes>
+              <attribute id="ab159caba86024ff5876b95bdf56a5436590" cid="PROP004" name="Id" creation-date="09/03/2024 10:37:18" property-ref="237d8e33a6034077976e43a914c7fed0" />
+              <attribute id="abb3a27d548d24959b30f123563340071226" cid="PROP005" name="DatePublication  DateTime" creation-date="09/03/2024 10:37:30" property-ref="16e3a9087a9145f1be0a3d7f3b3c0ea8" />
+              <attribute id="a35d3aa6a38ee43f1b1e97d9bf9148ba2186" cid="PROP006" name="Contenu  VarChar(500)" creation-date="09/03/2024 10:38:18" property-ref="a62152f179b5496eb14f8c90a9561492" />
+              <attribute id="adb7e487ef7d64dd3ab69c1a3e4bc04e4796" cid="PROP015" name="NbLike  (int)" creation-date="09/03/2024 10:50:11" property-ref="0909336ab6af422ca99a3f1072d1a76e" />
+              <attribute id="a61c2284d5c4a4c88a884b71a95498d60317" cid="PROP016" name="NbDisLike (int)" creation-date="09/03/2024 10:50:29" property-ref="561a276e0d3f492581e7a2f616412d3f" />
+              <attribute id="a770ad0e039404a1fb8465d0b5aef9df1678" cid="PROP024" name="NbView  (int)" creation-date="09/03/2024 11:03:32" property-ref="263f7437fe5d48d4bec18c46ebc59514" />
+              <attribute id="a339f74ab74354c359f9346b8653cfb15130" cid="PROP026" name="attach varchar(100)" creation-date="09/03/2024 11:15:46" property-ref="fa4838785e344b9ca7fb6402ff341cfd" />
+              <attribute id="a5f8ee0dd371d4f47bf979b9362fb0350416" cid="PROP009" name="IdAuteur" creation-date="09/03/2024 10:41:21" property-ref="b67d610282654cf0a395896857b85712" />
+              <attribute id="acc77d2623990455eac640f8dc027b339663" cid="PROP012" name="IdSujet" creation-date="09/03/2024 10:43:26" property-ref="a215e93e754b4000b84b9106bebd849f" />
+            </attributes>
+          </item>
+          <item id="6cdfd7e097564d19b658934f89858489" cid="PROP002" type="property" name="Titre   varchar(100)" style-class="" owner="ae363e2bd747439684d535e1aab04b16" creator="" creation-date="09/03/2024 10:35:17" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property>
+              <source-codes>
+                <source-code language="" uid="scs-646cf646-ea0d-413f-b24b-1d554435f7ca" />
+              </source-codes>
+            </property>
+          </item>
+          <item id="535321547a61493dbd1b108fd60e10fe" cid="C004" type="class" name="Membre" style-class="" change-tracking-state="added" creator="" creation-date="09/03/2024 10:13:23" visibility="undefined">
+            <owned-items>
+              <owned-item ref="e31e5756250843baa519b341011d56c3" />
+              <owned-item ref="181a168b26ca437e9665f3880ae45885" />
+              <owned-item ref="e66001d3ebc24dc6b2682b0a5cb1201c" />
+              <owned-item ref="beceb24be38d4bbea657888cc7cb8f34" />
+              <owned-item ref="e755800afdd449a29c135e74b6d7ce48" />
+              <owned-item ref="81b14bb6e0244516843808ce7ce4e103" />
+              <owned-item ref="a4d9eac4b53d499184690eadc1a41e79" />
+              <owned-item ref="e755800afdd449a29c135e74b6d7ce48" />
+            </owned-items>
+            <attributes>
+              <attribute id="aff5e864ab5124ffbb8bfde7eef8f1624163" cid="PROP017" name="Id" creation-date="09/03/2024 10:52:45" property-ref="e31e5756250843baa519b341011d56c3" />
+              <attribute id="ad402f0ba065848019b449f7ede3de2c411" cid="PROP018" name="pseudo  varchar(100)" creation-date="09/03/2024 10:52:55" property-ref="181a168b26ca437e9665f3880ae45885" />
+              <attribute id="a58336407431244e9b66cc221e382a75f963" cid="PROP019" name="courriel  (varchar100)" creation-date="09/03/2024 10:53:11" property-ref="e66001d3ebc24dc6b2682b0a5cb1201c" />
+              <attribute id="a9cf5a812e5864b30b05c8fd0de67a9c4323" cid="PROP020" name="userName varchar(100)" creation-date="09/03/2024 10:53:38" property-ref="beceb24be38d4bbea657888cc7cb8f34" />
+              <attribute id="acb391247a60b4a28a98713c1db1ba62367" cid="PROP021" name="MotDePasse  varchar(100)" creation-date="09/03/2024 10:54:04" property-ref="e755800afdd449a29c135e74b6d7ce48" />
+              <attribute id="a44716cbecadf49229ef2c66e5481f3e5930" cid="PROP022" name="rôle  varchar(50)" creation-date="09/03/2024 10:54:58" property-ref="81b14bb6e0244516843808ce7ce4e103" />
+              <attribute id="a2b2708908dbe49b389483018fcb31250618" cid="PROP025" name="profil varchar  (150)" creation-date="09/03/2024 11:13:38" property-ref="a4d9eac4b53d499184690eadc1a41e79" />
+            </attributes>
+          </item>
+          <item id="38290cd5439c494cbdb708b3e4d34014" cid="PROP011" type="property" name="DateCreation  DateTime" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:42:11" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="a7ac9b0e66a7440998baaa063a99e5fc" cid="PROP023" type="property" name="IdAuteur" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:58:34" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="FK" />
+          </item>
+          <item id="a4d9eac4b53d499184690eadc1a41e79" cid="PROP025" type="property" name="profil varchar  (150)" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 11:13:38" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="263f7437fe5d48d4bec18c46ebc59514" cid="PROP024" type="property" name="NbView  (int)" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 11:03:32" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="648a107397c14d658074c7324c6572c4" cid="PROP010" type="property" name="auteur  varchar(100)" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:41:44" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="66ee1158d93042679666e9c335ba1c4d" cid="PROP014" type="property" name="IdMessagePrincipale" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:48:33" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="FK" />
+          </item>
+          <item id="561a276e0d3f492581e7a2f616412d3f" cid="PROP016" type="property" name="NbDisLike (int)" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:50:29" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="181a168b26ca437e9665f3880ae45885" cid="PROP018" type="property" name="pseudo  varchar(100)" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 10:52:55" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="16e3a9087a9145f1be0a3d7f3b3c0ea8" cid="PROP005" type="property" name="DatePublication  DateTime" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:37:30" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="e66001d3ebc24dc6b2682b0a5cb1201c" cid="PROP019" type="property" name="courriel  (varchar100)" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 10:53:11" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="509473256d314e6a97a5646194b09030" cid="PROP003" type="property" name="Description  varchar(200)" style-class="" owner="ae363e2bd747439684d535e1aab04b16" creator="" creation-date="09/03/2024 10:35:53" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property>
+              <source-codes>
+                <source-code language="" uid="scs-26729ef1-cd9f-488b-be8e-a346b97c89c9" />
+              </source-codes>
+            </property>
+          </item>
+          <item id="237d8e33a6034077976e43a914c7fed0" cid="PROP004" type="property" name="Id" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:37:18" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="PK" />
+          </item>
+          <item id="e31e5756250843baa519b341011d56c3" cid="PROP017" type="property" name="Id" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 10:52:45" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="PK" />
+          </item>
+          <item id="a62152f179b5496eb14f8c90a9561492" cid="PROP006" type="property" name="Contenu  VarChar(500)" style-class="" owner="ae6a39c8efb943e0b2e83070c4638294" creator="" creation-date="09/03/2024 10:38:18" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="40fc02cc7fab47d08a37ffb45282ad23" cid="PROP013" type="property" name="IdSection" style-class="" owner="8448bacb5d6c4fabb1d19daac7994799" creator="" creation-date="09/03/2024 10:45:47" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property constraint="FK" />
+          </item>
+          <item id="81b14bb6e0244516843808ce7ce4e103" cid="PROP022" type="property" name="rôle  varchar(50)" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 10:54:58" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+          <item id="beceb24be38d4bbea657888cc7cb8f34" cid="PROP020" type="property" name="userName varchar(100)" style-class="" owner="535321547a61493dbd1b108fd60e10fe" creator="" creation-date="09/03/2024 10:53:38" visibility="private">
+            <feature />
+            <structural-feature type="" type-id="" />
+            <property />
+          </item>
+        </abstract-items>
+        <layer id="c79c874f6b26495894a8258a35a4c327" name="Default" visible="true" enabled="true" locked="false">
+          <item id="ae363e2bd747439684d535e1aab04b16" iid="858f159fc603441e8494920e9f1d88ec" creation-date="09/03/2024 10:12:51" order-index="0" type="entity">
+            <layout ax="183" ay="-27" awidth="167" aheight="111" x="183" y="-27" width="140" height="111" rotation-center="0,24.5" />
+            <classifier />
+            <class />
+          </item>
+          <item id="8448bacb5d6c4fabb1d19daac7994799" iid="fe8cd99590d54fb49602f81217426403" creation-date="09/03/2024 10:13:08" order-index="1" type="entity">
+            <layout ax="482" ay="35" awidth="187" aheight="181.5" x="482" y="35" width="187" height="181.5" rotation-center="-13,-4.25" />
+            <classifier />
+            <class />
+          </item>
+          <item id="ae6a39c8efb943e0b2e83070c4638294" iid="64b4076f4edb43b8adebaddee2048267" creation-date="09/03/2024 10:13:13" order-index="2" type="entity">
+            <layout ax="801" ay="134.5" awidth="187" aheight="212" x="801" y="134.5" width="187" height="180" rotation-center="-23.5,-10.5" />
+            <classifier />
+            <class />
+          </item>
+          <item id="535321547a61493dbd1b108fd60e10fe" iid="c0659b31e2d5469a859cb21ecdfe4cd1" creation-date="09/03/2024 10:13:23" order-index="3" type="entity">
+            <layout ax="466" ay="385.5" awidth="203" aheight="174" x="466" y="385.5" width="203" height="160" rotation-center="31.5,0" />
+            <classifier />
+            <class />
+          </item>
+          <item id="9f9935ad7d4e48798e1e8ee0f1992d82" iid="3229cfcb838f46e89df1f3d389ffd00a" creation-date="09/03/2024 10:46:32" order-index="6" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="8.734722,-15.66389" end-multiplicity-position="25.00001,15" line-style="oblique" lock-to-fields="false" auto-path="" x1="350" y1="55" x2="482" y2="96" start-border-pos="0.433682072270024" end-border-pos="0.915586949708376" name-position="0,20">
+              <points>
+                <point x="350" y="55" />
+                <point x="482" y="96" />
+              </points>
+            </layout>
+            <relation from="ae363e2bd747439684d535e1aab04b16" from-iid="858f159fc603441e8494920e9f1d88ec" to="8448bacb5d6c4fabb1d19daac7994799" to-iid="fe8cd99590d54fb49602f81217426403" />
+          </item>
+          <item id="eb42da1bfe92427cae564b9fbda147f5" iid="f975cf59ce5a46a69f2297b2b6f07b69" creation-date="09/03/2024 10:47:08" order-index="7" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="6.117977,-15.7142" end-multiplicity-position="24.99997,15.00002" line-style="oblique" lock-to-fields="false" auto-path="" x1="669" y1="159" x2="801" y2="207" start-border-pos="0.421266708163847" end-border-pos="0.914905224206313" name-position="0,20">
+              <points>
+                <point x="669" y="159" />
+                <point x="801" y="207" />
+              </points>
+            </layout>
+            <relation from="8448bacb5d6c4fabb1d19daac7994799" from-iid="fe8cd99590d54fb49602f81217426403" to="ae6a39c8efb943e0b2e83070c4638294" to-iid="64b4076f4edb43b8adebaddee2048267" />
+          </item>
+          <item id="77dc49b89c494408a3463a33ca3afec4" iid="d789d6ed0b554a35aa697d61f1ba92c3" creation-date="09/03/2024 10:57:17" order-index="8" type="relation">
+            <layout start-role-position="25,15" end-role-position="25,-15" start-multiplicity-position="5.243433,19.34642" end-multiplicity-position="21.34749,-19.24407" line-style="oblique" lock-to-fields="false" auto-path="" x1="669" y1="400" x2="801" y2="306" start-border-pos="0.271009598655262" end-border-pos="0.797542392082934" name-position="0,20">
+              <points>
+                <point x="669" y="400" />
+                <point x="801" y="306" />
+              </points>
+            </layout>
+            <relation from="535321547a61493dbd1b108fd60e10fe" from-iid="c0659b31e2d5469a859cb21ecdfe4cd1" to="ae6a39c8efb943e0b2e83070c4638294" to-iid="64b4076f4edb43b8adebaddee2048267" />
+          </item>
+          <item id="2049363941194c17b2a2ebac8ee4db8f" iid="06bfec4d3f8b4ddcad4bf2f456d4e8bf" creation-date="09/03/2024 10:59:29" order-index="9" type="relation">
+            <layout start-role-position="25,15" end-role-position="25.00001,-15" start-multiplicity-position="25,-15" end-multiplicity-position="25,15" line-style="oblique" lock-to-fields="false" auto-path="" x1="570" y1="386" x2="574" y2="216" start-border-pos="0.128064611275208" end-border-pos="0.627113546279662" name-position="0,20">
+              <points>
+                <point x="570" y="386" />
+                <point x="574" y="216" />
+              </points>
+            </layout>
+            <relation from="535321547a61493dbd1b108fd60e10fe" from-iid="c0659b31e2d5469a859cb21ecdfe4cd1" to="8448bacb5d6c4fabb1d19daac7994799" to-iid="fe8cd99590d54fb49602f81217426403" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+</sim-project>
