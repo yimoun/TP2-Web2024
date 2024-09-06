@@ -1,9 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<Section>
+@*
+@model SectionListVM
 @{
-    ViewData["Title"] = "Liste des sections";
+    ViewData["Title"] = "choix de menu";
 }
 
 <div id="dashboard-page" class="container">
@@ -21,20 +22,28 @@
 
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Titre)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Description)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Menus[0].Description)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Menus[0].Description)</th>
                     <th class="action">Actions</th>
                 </tr>
-                @if (Model.Count > 0)
+                @if (Model.Menus.Count > 0)
                 {
-                    foreach (Section section in Model)
+                    foreach (Menu menu in Model.Menus)
                     {
                         <tr>
-                            <td class="description">@Html.DisplayFor(model => section.Titre)</td>
-                            <td class="description">@Html.DisplayFor(model => section.Description)</td>
+                            <td class="description">@Html.DisplayFor(model => menu.Titre)</td>
+                            <td class="description">@Html.DisplayFor(model => menu.Description)</td>
 
                             <td class="action">
-                              plus tard
+                                <a asp-action="Edit" asp-route-id="@menu.Id">
+                                    <span class="edit-icon" data-id="1" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                </a>   |
+                                <a asp-action="Delete" asp-route-id="@menu.Id">
+                                    <span class="delete-icon" data-id="1" title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                </a>
                             </td>
                         </tr>
                     }
@@ -55,7 +64,8 @@
             </div>
         </div>
 
-        @* <p><a asp-action="Create">Ajouter un choix Menu</a></p> *@
+        <p><a asp-action="Create">Ajouter un choix Menu</a></p>
     </div>
 </div>
 </div>
+*@

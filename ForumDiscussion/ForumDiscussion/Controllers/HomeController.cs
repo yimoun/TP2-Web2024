@@ -1,5 +1,7 @@
-﻿using ForumDiscussion.Models;
+﻿using ForumDiscussion.Data.Context;
+using ForumDiscussion.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace ForumDiscussion.Controllers
@@ -7,15 +9,21 @@ namespace ForumDiscussion.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ForumContext _forumContext;    
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ForumContext forumContext)
         {
             _logger = logger;
+            _forumContext = forumContext;
         }
 
-        public IActionResult Index()
+
+        public  IActionResult Index()
         {
-            return View();
+            List<Section> sections = new List<Section>();
+            sections =  _forumContext.Section.ToList();
+
+            return  View(sections);
         }
 
         public IActionResult Privacy()
