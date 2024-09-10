@@ -1,5 +1,6 @@
 ﻿using ForumDiscussion.Data.Context;
 using ForumDiscussion.Models;
+using ForumDiscussion.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -20,10 +21,10 @@ namespace ForumDiscussion.Controllers
 
         public  IActionResult Index()
         {
-            List<Section> sections = new List<Section>();
-            sections =  _forumContext.Section.ToList();
+            List<Section> sections = _forumContext.Section.ToList();
+            SectionListVM vm = new SectionListVM(sections);
 
-            return  View(sections);
+            return  View(vm);
         }
 
         public IActionResult Privacy()
