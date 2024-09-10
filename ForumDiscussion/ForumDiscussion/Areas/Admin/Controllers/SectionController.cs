@@ -10,6 +10,7 @@ using ForumDiscussion.Models;
 
 namespace ForumDiscussion.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class SectionController : Controller
     {
         private readonly ILogger<HomeController> _logger;

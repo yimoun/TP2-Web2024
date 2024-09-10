@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<Section>
+@model SectionListVM
 @{
     ViewData["Title"] = "Liste des sections";
 }
@@ -21,21 +21,37 @@
 
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Titre)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Description)</th>
-                    <th class="action">Actions</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Sections[0].Titre)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Sections[0].Description)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Sections[0].Sujets)</th>
+                    <th class="description">Messages</th>
+                    <th class="description">Dernier message</th>
                 </tr>
-                @if (Model.Count > 0)
+                @if (Model.Sections.Count > 0)
                 {
-                    foreach (Section section in Model)
+                    foreach (Section s in Model.Sections)
                     {
                         <tr>
-                            <td class="description">@Html.DisplayFor(model => section.Titre)</td>
-                            <td class="description">@Html.DisplayFor(model => section.Description)</td>
-
-                            <td class="action">
-                              plus tard
-                            </td>
+                            <td class="description">@Html.DisplayFor(model => s.Titre)</td>
+                            <td class="description">@Html.DisplayFor(model => s.Description)</td>
+                            <td class="description">@s?.Sujets?.Count</td>
+                            @if (s?.Sujets != null)
+                            {
+                                @foreach (Sujet sujet in s.Sujets)
+                                {
+                                    <td class="description"></td>@sujet?.Messages?.Count
+                                    if (sujet?.Messages != null)
+                                    {
+                                        @foreach (Message m in sujet.Messages)
+                                        {
+                                            <td class="description">
+                                                par @Html.DisplayFor(model => m.Auteur.Pseudo)<br />
+                                                @Html.DisplayFor(model => m.DatePublication)
+                                            </td>
+                                        }
+                                    }
+                                }
+                            }
                         </tr>
                     }
                 }
