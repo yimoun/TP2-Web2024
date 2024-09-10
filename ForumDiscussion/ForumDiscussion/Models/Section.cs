@@ -6,5 +6,12 @@
         public string Titre { get; set; }
         public string Description { get; set; }
         public List<Sujet>? Sujets { get; set; }
+       
+
+        public Section(string titre, string description)
+        {
+            Titre = titre;
+            Description = description;
+        }   
     }
 }
