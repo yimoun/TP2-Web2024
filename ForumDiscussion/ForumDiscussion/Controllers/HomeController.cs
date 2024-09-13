@@ -4,6 +4,9 @@ using ForumDiscussion.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using ForumDiscussion.Models;
+using static System.Collections.Specialized.BitVector32;
+using Section = ForumDiscussion.Models.Section;
 
 namespace ForumDiscussion.Controllers
 {
@@ -21,8 +24,18 @@ namespace ForumDiscussion.Controllers
 
         public  IActionResult Index()
         {
+            int scount = 0;
             List<Section> sections = _forumContext.Section.ToList();
-            SectionListVM vm = new SectionListVM(sections);
+
+            List<Sujet> sujets = new List<Sujet>();
+
+           
+
+            foreach (Section section in sections)
+            {
+                scount = section.Sujets.Count();
+            }
+            SectionListVM vm = new SectionListVM(sections, scount);
 
             return  View(vm);
         }

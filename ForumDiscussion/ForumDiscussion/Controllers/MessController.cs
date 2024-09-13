@@ -2,7 +2,7 @@
 
 namespace ForumDiscussion.Controllers
 {
-    public class MessageController : Controller
+    public class MessController : Controller
     {
         public IActionResult Index()
         {

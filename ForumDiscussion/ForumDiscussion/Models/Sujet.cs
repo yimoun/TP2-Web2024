@@ -10,6 +10,6 @@
         public Membre Membre { get; set; }
         public int SectionId { get; set; }
         public Section Section { get; set; }
-        public List<Message>? Messages { get; set; }
+        public List<MessageModel>? Messages { get; set; }
     }
 }
