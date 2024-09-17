@@ -1,131 +1,113 @@
-﻿//using ForumDiscussion.Areas.Admin.ViewModels;
-//using Microsoft.AspNetCore.Mvc;
-//using ForumDiscussion.Models;
-//using ForumDiscussion.Helpers;
-//using Microsoft.AspNetCore.Mvc.ModelBinding;
-//using Mastermind.ViewModels;
-//using System.Security.Claims;
-//using System.Diagnostics.Metrics;
-//using Microsoft.AspNetCore.Authentication.Cookies;
-//using Microsoft.AspNetCore.Authentication;
 
-//namespace Mastermind.Controllers
-//{
-//    public class MembreController : Controller
-//    {
-//        public IActionResult Create()
-//        {
-//           Membre membre = new Membre();
+using ForumDiscussion.Areas.Admin.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using ForumDiscussion.Models;
+using ForumDiscussion.Helpers;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ForumDiscussion.ViewModels;
+using System.Security.Claims;
+using System.Diagnostics.Metrics;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System;
+using ForumDiscussion.Data.Context;
 
-//            return View("CreateEdit", membre);
-//        }
+namespace Mastermind.Controllers
+{
+    public class MembreController : Controller
+    {
+        private readonly ILogger<MembreController> _logger;
+        private readonly ForumContext _forumContext;
 
-//        [HttpPost]
-//        public IActionResult Create(Membre? member, IFormFile uploadfile)
-//        {
-//            if (member != null && uploadfile != null && uploadfile.Length > 0)
-//            {
-//                DAL dal = new DAL();
-//                Member existingMember = dal.MemberFact.GetByUsername(member.Username);  
+        public MembreController(ILogger<MembreController> logger, ForumContext forumContext)
+        {
+            _logger = logger;
+            _forumContext = forumContext;
+        }
 
-//                if(existingMember != null)  //Je pense que le "remote" le fait déja !
-//                {
-//                    return View("SiteMessage", new SiteMessageVM
-//                    {
-//                        Message = Resource.UsernameAlreadyExists
-//                    });
-//                }
+        public IActionResult Create()
+        {
+            Membre membre = new Membre();
 
+            return View("CreateEdit", membre);
+        }
 
-//                string extension = Path.GetExtension(uploadfile.FileName).ToLower();
-//                string filename = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
-//                string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img\\Members", filename);
+        [HttpPost]
+        public IActionResult Create(Membre? membre, IFormFile uploadfile)
+        {
+            if (membre != null && uploadfile != null && uploadfile.Length > 0)
+            {
+                //On ne peut pas avoir deux membres avec le meme username
+                Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == membre.Username).FirstOrDefault();
 
-//                using FileStream stream = System.IO.File.Create(pathToSave);
-//                uploadfile.CopyTo(stream);
-
-//                member.ImagePath = filename;
-
-//                ModelStateEntry? imagePathModelState = ModelState["ImagePath"];
-//                if (imagePathModelState != null)
-//                {
-//                    imagePathModelState.ValidationState = ModelValidationState.Valid;
-//                }
-//            }
-
-//            if (ModelState.IsValid)
-//            {
-//                member.Role = Member.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
-
-//                member.Password = CryptographyHelper.HashPassword(member.Password);
-
-//                //TODO: J'ai plus besoin des ExistingMember pour verifier le Username, car le Remote le fait déja !
-
-//                new DAL().MemberFact.Save(member);
-
-//                //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
-//                return RedirectToAction("Login", "Auth", new { Area = "" });
-//            }
-//            return View("CreateEdit", member);
-//        }
-
-//        [AuthorizeLoggedIn] //Filtre uniquement pour les utilisateurs connectés
-//        public IActionResult Filter()
-//        {
-//            string userId = User.FindFirst(ClaimTypes.Sid)?.Value;
-
-//            int id = 0;
-
-//            if(int.TryParse(userId, out id))
-//            {
-//                DAL dal = new();
-//                Member? memberExisting = dal.MemberFact.Get(id);
-
-//                if (memberExisting != null)
-//                {
-//                    return View("CreateEdit", memberExisting);
-//                }
-//            }
-
-//            return View("SiteMessage", new SiteMessageVM
-//            {
-//                Message = Resource.Idwrong
-//            });
+                if (existingMembre != null)  //Je pense que le "remote" le fait déja !
+                {
+                    return View("SiteMessage", new SiteMessageVM
+                    {
+                        Message = "Ce nom d'utilisateur est déja existant !"
+                    });
+                }
 
 
-//        }
+                string extension = Path.GetExtension(uploadfile.FileName).ToLower();
+                string filename = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
+                string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img\\Members", filename);
 
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public IActionResult Edit(Member member, IFormFile uploadfile)
-//        {
-//            if (member != null)
-//            {
-//                DAL dal = new();
+                using FileStream stream = System.IO.File.Create(pathToSave);
+                uploadfile.CopyTo(stream);
 
-//                Member? existingMember = dal.MemberFact.Get(member.Id);
-//                if (existingMember != null)
-//                {
-//                    // Déconnexion de l'utilisateur
-//                    HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                membre.Profil = filename;
 
-//                    member.Password = CryptographyHelper.HashPassword(member.Password);
+                ModelStateEntry? imagePathModelState = ModelState["ImagePath"];
+                if (imagePathModelState != null)
+                {
+                    imagePathModelState.ValidationState = ModelValidationState.Valid;
+                }
+            }
 
-//                    dal.MemberFact.Save(member);
+            if (ModelState.IsValid)
+            {
+                membre.Role = Membre.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
 
-//                    //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
-//                    return RedirectToAction("Login", "Auth", new { Area = "" });
-//                }
-//                else
-//                {
-//                    return View("SiteMessage", new SiteMessageVM
-//                    {
-//                        Message = Resource.Idwrong
-//                    });
-//                }
-//            }
+                membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
 
-//            return RedirectToAction("List");
-//        }
-//    }
-//}
+                //TODO: J'ai plus besoin des ExistingMember pour verifier le Username, car le Remote le fait déja !
+
+                _forumContext.Add(membre);
+                _forumContext.SaveChanges();
+
+                //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
+                return RedirectToAction("Login", "Auth", new { Area = "" });
+            }
+            return View("CreateEdit", membre);
+        }
+
+
+        [AuthorizeLoggedIn] //Filtre uniquement pour les utilisateurs connectés
+        public IActionResult Filter()
+        {
+            string userId = User.FindFirst(ClaimTypes.Sid)?.Value;
+
+            int id = 0;
+
+            if (int.TryParse(userId, out id))
+            {
+
+                Membre? existingMembre = _forumContext.Membre.Find(id);
+
+                if (existingMembre != null)
+                {
+                    return View("CreateEdit", existingMembre);
+                }
+            }
+
+            return View("SiteMessage", new SiteMessageVM
+            {
+                Message = "Id de membre intouvable ou incorrecte !"
+            });
+
+
+        }
+    }
+}
+

@@ -1,3 +1,4 @@
+
 ﻿using ForumDiscussion.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
@@ -8,7 +9,9 @@ using ForumDiscussion.Helpers;
 using System;
 using ForumDiscussion.Data.Context;
 
+
 namespace ForumDiscussion.Controllers
+
 {
     public class AuthController : Controller
     {
@@ -32,7 +35,7 @@ namespace ForumDiscussion.Controllers
             if (ModelState.IsValid)
             {
                 //Membre? user = new DAL().MemberFact.GetByUsername(viewModel.Username);
-                Membre? existingMembre = _forumContext.Membre.Where(m => m.Courriel == viewModel.Username).FirstOrDefault();
+                Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == viewModel.Username).FirstOrDefault();
 
                 if (existingMembre != null)
                 {

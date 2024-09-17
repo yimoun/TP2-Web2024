@@ -32,17 +32,17 @@
                     foreach (Section s in Model.Sections)
                     {
                         <tr>
-                            <td class="description">@Html.DisplayFor(model => s.Titre)</td>
+                            <td class="description"><a asp-action="List" asp-controller="Sujet" asp-route-id="@s.Id">@Html.DisplayFor(model => s.Titre)</a></td>
                             <td class="description">@Html.DisplayFor(model => s.Description)</td>
-                            <td class="description">@s?.Sujets?.Count</td>
+                            <td class="description">@Html.DisplayFor(model => model.count)</td>
                             @if (s?.Sujets != null)
                             {
                                 @foreach (Sujet sujet in s.Sujets)
                                 {
-                                    <td class="description"></td>@sujet?.Messages?.Count
+                                    <td class="description">@Html.DisplayFor(model => sujet.Messages.Count)</td>
                                     if (sujet?.Messages != null)
                                     {
-                                        @foreach (Message m in sujet.Messages)
+                                        @foreach (MessageModel m in sujet.Messages)
                                         {
                                             <td class="description">
                                                 par @Html.DisplayFor(model => m.Auteur.Pseudo)<br />

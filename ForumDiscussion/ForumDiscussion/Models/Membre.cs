@@ -10,6 +10,7 @@ namespace ForumDiscussion.Models
         public const string ROLE_ADMIN = "Admin";
         public const string ROLE_STANDARD = "Standard";
 
+
         public int Id { get; set; }
 
         [Display(Name = "Pseudo")]
@@ -42,7 +43,7 @@ namespace ForumDiscussion.Models
         [Required(AllowEmptyStrings = false, ErrorMessage ="Une image de profil est requise")]
         public string Profil { get; set; } = string.Empty;
 
-        public List<Message>? Messages { get; set; }
+        public List<MessageModel>? Messages { get; set; }
         public List<Sujet>? Sujets { get; set; }
 
         // Constructeur vide requis pour la désérialisation

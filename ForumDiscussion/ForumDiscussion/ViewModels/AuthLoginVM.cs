@@ -1,6 +1,7 @@
 ﻿using ForumDiscussion;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace ForumDiscussion.ViewModels;
 
     public class AuthLoginVM
