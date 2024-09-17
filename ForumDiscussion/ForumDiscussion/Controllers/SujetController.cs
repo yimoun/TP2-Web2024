@@ -15,9 +15,9 @@ namespace ForumDiscussion.Controllers
             _logger = logger;
             _forumContext = forumContext;
         }
-        public IActionResult List()
+        public IActionResult List(int idSection)
         {
-            List<Sujet> sujets = _forumContext.Sujet.ToList();
+            List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == idSection).ToList();
             SujetListVM vm = new SujetListVM(sujets);
 
             return View(vm);

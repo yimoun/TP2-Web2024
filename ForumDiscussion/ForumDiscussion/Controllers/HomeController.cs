@@ -29,12 +29,12 @@ namespace ForumDiscussion.Controllers
 
             List<Sujet> sujets = new List<Sujet>();
 
+            sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[0].Id).ToList();
 
-
-            foreach (Section section in sections)
-            {
-                sujets = _forumContext.Sujet.Where(x => x.SectionId == section.Id).ToList();
-            }
+            //foreach (Section section in sections)
+            //{
+                
+            //}
             scount = sujets.Count;
 
             SectionListVM vm = new SectionListVM(sections, scount);
