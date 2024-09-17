@@ -17,8 +17,8 @@ namespace ForumDiscussion.Controllers
         public IActionResult List(int idSujet)
         {
             List<MessageModel> messages = _forumContext.Message.Where(x => x.SujetId == idSujet).ToList();
-
-            messListVM vm = new messListVM(messages);
+            MessageModel reponse = new MessageModel();
+            messListVM vm = new messListVM(messages, reponse);
             return View(vm);
         }
 
