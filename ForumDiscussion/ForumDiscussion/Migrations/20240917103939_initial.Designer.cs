@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumDiscussion.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    [Migration("20240906194147_Initial")]
-    partial class Initial
+    [Migration("20240917103939_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,8 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<string>("MotDePasse")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Profil")
                         .IsRequired()
@@ -41,7 +42,8 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<string>("Pseudo")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -49,7 +51,8 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 

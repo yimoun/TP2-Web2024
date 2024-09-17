@@ -31,7 +31,8 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<string>("MotDePasse")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Profil")
                         .IsRequired()
@@ -39,7 +40,8 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<string>("Pseudo")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -47,7 +49,8 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
