@@ -65,11 +65,11 @@ namespace ForumDiscussion.Areas.Admin.Controllers
                     }
                     membre.Profil = uploadfile.FileName;
 
-                   // ModelStateEntry? imagePathModelState = ModelState["member.Profil"];
-                    //if (imagePathModelState != null)
-                    //{
-                    //    imagePathModelState.ValidationState = ModelValidationState.Valid;
-                    //}
+                    ModelStateEntry? imagePathModelState = ModelState["member.Profil"];
+                    if (imagePathModelState != null)
+                    {
+                        imagePathModelState.ValidationState = ModelValidationState.Valid;
+                    }
                 }
 
                 
@@ -118,13 +118,47 @@ namespace ForumDiscussion.Areas.Admin.Controllers
                     ModelState.AddModelError("Description", "Cette username existe déjà.");
                 }
 
-                if (!ModelState.IsValid)
-                {
-                    return View("CreateEdit", membreChoice);
-                }
-
                 _forumContext.Update(membreChoice);
                 _forumContext.SaveChanges();
+            }
+
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (id > 0)
+            {
+                Membre? membre = _forumContext.Membre.Find(id);
+
+                if (membre != null)
+                {
+                    return View(membre);
+                }
+            }
+
+            return View("AdminMessage", new AdminMessageVM("L'identifiant de ce membre est introuvable ou ce membre'existe pas ."));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, IFormCollection collection)
+        {
+            Membre? membre = _forumContext.Membre.Find(id);
+
+            if (membre == null || id < 0)
+            {
+                return View("AdminMessage", new AdminMessageVM("L'identifiant de ce membre est introuvable ou ce membre'existe pas ."));
+            }
+
+            try
+            {
+                _forumContext.Membre.Remove(membre);
+                _forumContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return View("AdminMessage", new AdminMessageVM(ex.Message));
             }
 
             return RedirectToAction("List");

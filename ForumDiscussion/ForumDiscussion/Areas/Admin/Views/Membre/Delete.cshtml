@@ -1,0 +1,39 @@
+﻿@model Membre
+@{
+    ViewData["Title"] = "Supprimer un membre";
+}
+
+<div id="product-delete-page">    
+    <div class="row">
+        <div class="offset-md-1 offset-lg-2 col-md-10 col-lg-8">
+            <div class="page-title">
+                <h2>Supprimer un membre</h2>
+                <h5>Êtes-vous sur de vouloir suprimer ce membre ?</h5>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="image-section">
+                <img src="~/img/Members/@Model.Profil" alt="@Html.DisplayFor(model => Model.Username)" class="img-thumbnail img-fluid" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-section">
+                <div class="row details-row">
+                    <div class="col-sm-6">@Html.DisplayNameFor(model => model.Username) : </div>
+                    <div class="col-sm-6">@Html.DisplayFor(model => model.Username)</div>
+                </div>
+                <hr/>
+                <form asp-action="Delete">
+                    <input type="submit" value="Supprimer" class="btn btn-danger" />
+                </form>
+                <div class="links">
+                    <a asp-action="List">Retour à la liste des membres</a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

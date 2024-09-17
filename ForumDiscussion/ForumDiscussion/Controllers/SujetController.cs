@@ -2,6 +2,7 @@
 using ForumDiscussion.Models;
 using ForumDiscussion.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ForumDiscussion.Controllers
 {
@@ -15,8 +16,9 @@ namespace ForumDiscussion.Controllers
             _logger = logger;
             _forumContext = forumContext;
         }
-        public IActionResult List()
+        public IActionResult List(int idSection)
         {
+
             List<Sujet> sujets = _forumContext.Sujet.ToList();
             SujetListVM vm = new SujetListVM(sujets);
 
