@@ -123,12 +123,11 @@ namespace ForumDiscussion.Areas.Admin.Controllers
                 }
             }
 
-            return View("AdminMessage", new AdminMessageVM("L'identifiant de cette section est introuvable ou cette sectionn'existe pas ."));
+            return View("AdminMessage", new AdminMessageVM("L'identifiant de cette section est introuvable ou cette section n'existe pas ."));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        /*àprès avoir confirmer la suppression*/
         public IActionResult Delete(int id, IFormCollection collection)
         {
             Section? section = _forumContext.Section.Find(id);

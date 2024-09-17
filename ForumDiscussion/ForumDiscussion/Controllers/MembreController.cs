@@ -25,6 +25,14 @@ namespace Mastermind.Controllers
             _forumContext = forumContext;
         }
 
+        public async Task<IActionResult> Logout()
+        {
+        
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Home"); 
+        }
+
         public IActionResult Create()
         {
             Membre membre = new Membre();
@@ -70,8 +78,6 @@ namespace Mastermind.Controllers
                 membre.Role = Membre.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
 
                 membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
-
-                //TODO: J'ai plus besoin des ExistingMember pour verifier le Username, car le Remote le fait déja !
 
                 _forumContext.Add(membre);
                 _forumContext.SaveChanges();

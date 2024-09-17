@@ -34,7 +34,6 @@ namespace ForumDiscussion.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Membre? user = new DAL().MemberFact.GetByUsername(viewModel.Username);
                 Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == viewModel.Username).FirstOrDefault();
 
                 if (existingMembre != null)
@@ -46,7 +45,7 @@ namespace ForumDiscussion.Controllers
                     {
                         var identity = new ClaimsIdentity(new[] {
                                 new Claim(ClaimTypes.Sid, existingMembre.Id.ToString()),
-                                new Claim(ClaimTypes.Name, existingMembre.Username),
+                                new Claim(ClaimTypes.Name, existingMembre.Pseudo),
                                 new Claim(ClaimTypes.Email, existingMembre.Courriel),
                                 new Claim(ClaimTypes.Role, existingMembre.Role)
                             }, CookieAuthenticationDefaults.AuthenticationScheme);

@@ -29,15 +29,15 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav ms-auto">
-                        @if (!(User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur n’est pas connecté
+                        @if ((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Membre" asp-action="Create" asp-fragment="rules">Creer un nouveau compte</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Membre" asp-action="Logout" asp-fragment="rules">Déconnexion</a>
                             </li>
-                        }
-                        else       //Uniquement disponible lorsque le membre est connecté
-                        {
-                            <a class="nav-link text-light" asp-area="" asp-controller="Membre" asp-action="Filter" asp-route-id=userId asp-fragment="rules">Modifier votre profil</a>
+
+                            <li class="nav-item">
+                                @User.Identity.Name
+                            </li>
                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Administration</a>

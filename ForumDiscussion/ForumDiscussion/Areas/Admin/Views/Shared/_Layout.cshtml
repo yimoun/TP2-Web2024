@@ -31,16 +31,29 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
+                        @if ((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Membre" asp-action="Logout" asp-fragment="rules">Déconnexion</a>
+                            </li>
+
+                            <li class="nav-item text-white">
+                                @User.Identity.Name
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Admin" asp-controller="Section" asp-action="List">GESTION DES SECTIONS</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Admin" asp-controller="Membre" asp-action="List">GESTION DES MEMBRES</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">RETOUR AU FORUM</a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>a
 
     </header>  
     <div class="container-fluid">
@@ -59,6 +72,11 @@
             <div class="footer-item text-white text-center">
                 <a asp-area="Admin" asp-controller="Membre" asp-action="List">
                     <i class="fas fa-user"></i> GESTION DES MEMBRES
+                </a>
+            </div>
+            <div class="footer-item text-white text-center">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-user"></i> RETOUR AU FORUM
                 </a>
             </div>
         </div>
