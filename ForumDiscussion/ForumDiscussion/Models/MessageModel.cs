@@ -2,7 +2,7 @@
 
 namespace ForumDiscussion.Models
 {
-    public class Message
+    public class MessageModel
     {
         public int Id { get; set; }
         public DateTime DatePublication { get; set; }

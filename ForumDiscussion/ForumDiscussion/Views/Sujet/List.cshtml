@@ -34,7 +34,7 @@
                             <td class="description">
                                 @Html.DisplayFor(model => sujet.Messages.Count)
                             </td>
-                            @foreach (Message m in sujet.Messages)
+                            @foreach (MessageModel m in sujet?.Messages)
                             {
                                 <td class="description">
                                     par @Html.DisplayFor(model => sujet.Auteur)<br>
@@ -51,7 +51,6 @@
                     </tr>
                 }
             </table>
-
         </div>
 
         <div class="row">
@@ -59,8 +58,5 @@
                 <a asp-action="Create" class="btn btn-primary">Nouveau Sujet</a>
             </div>
         </div>
-
-        <p><a asp-action="Create">Ajouter un choix Menu</a></p>
     </div>
-</div>
 </div>
