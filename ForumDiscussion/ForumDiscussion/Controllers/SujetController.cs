@@ -18,8 +18,12 @@ namespace ForumDiscussion.Controllers
         }
         public IActionResult List(int idSection)
         {
+<<<<<<< HEAD
 
             List<Sujet> sujets = _forumContext.Sujet.ToList();
+=======
+            List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == idSection).ToList();
+>>>>>>> 6daa5b9baa28b4e57f364e5a12d561edc3331346
             SujetListVM vm = new SujetListVM(sujets);
 
             return View(vm);

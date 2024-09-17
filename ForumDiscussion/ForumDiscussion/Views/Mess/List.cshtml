@@ -1,4 +1,4 @@
-﻿@model List<MessageModel>
+﻿@model messListVM
 @{
     ViewData["Title"] = "Liste des sections";
 }
@@ -18,15 +18,15 @@
 
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Auteur)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Contenu)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].NbLike)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].NbDislike)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].NbView)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Messages[0].Auteur)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Messages[0].Contenu)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Messages[0].NbLike)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Messages[0].NbDislike)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.Messages[0].NbView)</th>
                 </tr>
-                @if (Model.Count > 0)
+                @if (Model.Messages.Count > 0)
                 {
-                    foreach (MessageModel m in Model)
+                    foreach (MessageModel m in Model.Messages)
                     {
                         <tr>
                             <td class="description">@Html.DisplayFor(model => m.Auteur)</td>
@@ -47,11 +47,21 @@
 
         </div>
 
-        <div class="row">
+        @*<div class="row">
             <div class="col-md-12">
-
-                <a asp-action="Create" class="btn btn-primary">Répondre</a>
+                <form asp-action="Post">
+                    <input type="hidden" asp-for="Reponse.Id" />
+                    <div class="form-group row">
+                        <label asp-for="Reponse.Contenu" class="col-form-label col-md-3 fw-bold"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Reponse.Contenu" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" value="Répondre" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>

@@ -28,19 +28,20 @@
                     foreach (Sujet sujet in Model.Sujets)
                     {
                         <tr>
-                            <td class="description">@Html.DisplayFor(model => sujet.Titre)<br>
-                                par @Html.DisplayFor(model => sujet.Auteur) >> @Html.DisplayFor(model => sujet.DateCreation)
+                            <td class="description">
+                                <a asp-action="List" asp-controller="Mess" asp-route-idSujet="@sujet.Id">@Html.DisplayFor(model => sujet.Titre)</a><br>
+                                par @Html.DisplayFor(model => sujet.Auteur) » @Html.DisplayFor(model => sujet.DateCreation)
                             </td>
                             <td class="description">
                                 @Html.DisplayFor(model => sujet.Messages.Count)
                             </td>
-                            @foreach (MessageModel m in sujet?.Messages)
+                            @*@foreach (MessageModel m in sujet?.Messages)
                             {
                                 <td class="description">
                                     par @Html.DisplayFor(model => sujet.Auteur)<br>
                                     @Html.DisplayFor(model => sujet.DateCreation.Date)
                                 </td>
-                            }
+                            }*@
                         </tr>
                     }
                 }
