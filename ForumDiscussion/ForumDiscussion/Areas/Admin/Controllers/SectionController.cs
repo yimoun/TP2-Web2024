@@ -131,15 +131,25 @@ namespace ForumDiscussion.Areas.Admin.Controllers
         /*àprès avoir confirmer la suppression*/
         public IActionResult Delete(int id, IFormCollection collection)
         {
-            if (id > 0)
+            Section? section = _forumContext.Section.Find(id);
+            
+            if(section == null || id < 0)
             {
-                _forumContext.Remove(id);
-                _forumContext.SaveChanges();
+                return View("AdminMessage", new AdminMessageVM("L'identifiant de cette section est introuvable ou invalide ou cette sectionn'existe pas ."));
             }
 
-            return RedirectToAction("List");
-        }
+            try
+            {
+                _forumContext.Section.Remove(section);
+                _forumContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return View("AdminMessage", new AdminMessageVM(ex.Message));
+            }
 
+          return RedirectToAction("List");
+        }
     }
 
        

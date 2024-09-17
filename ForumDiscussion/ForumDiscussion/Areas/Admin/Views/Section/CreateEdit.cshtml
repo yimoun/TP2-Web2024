@@ -27,7 +27,17 @@
             <div class="form-section">
                 <form asp-action="@formAction">
                     <input type="hidden" asp-for="Id" /> @*Pas besoin de l'afficher il sera passé dans l'url*@
-
+                    <div class="form-horizontal">
+                        <hr />
+                        <div class="form-group row">
+                            <label asp-for="Titre" class="col-form-label col-md-3 gauche"></label>
+                            <div class="col-md-9 gauche">
+                                <input asp-for="Titre" class="form-control" />
+                                <span asp-validation-for="Titre" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
                     <div class="form-horizontal">
                         <hr />
                         <div class="form-group row">
