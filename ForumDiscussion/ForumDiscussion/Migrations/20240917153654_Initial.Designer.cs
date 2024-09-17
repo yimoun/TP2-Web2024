@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumDiscussion.Migrations
 {
     [DbContext(typeof(ForumContext))]
-    [Migration("20240917103939_initial")]
-    partial class initial
+    [Migration("20240917153654_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace ForumDiscussion.Migrations
                     b.ToTable("Membre");
                 });
 
-            modelBuilder.Entity("ForumDiscussion.Models.Message", b =>
+            modelBuilder.Entity("ForumDiscussion.Models.MessageModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,10 +86,6 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<int>("SujetId")
                         .HasColumnType("int");
-
-                    b.Property<string>("attach")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -151,7 +147,7 @@ namespace ForumDiscussion.Migrations
                     b.ToTable("Sujet");
                 });
 
-            modelBuilder.Entity("ForumDiscussion.Models.Message", b =>
+            modelBuilder.Entity("ForumDiscussion.Models.MessageModel", b =>
                 {
                     b.HasOne("ForumDiscussion.Models.Membre", "Auteur")
                         .WithMany("Messages")

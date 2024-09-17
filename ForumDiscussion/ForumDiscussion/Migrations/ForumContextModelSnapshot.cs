@@ -57,7 +57,7 @@ namespace ForumDiscussion.Migrations
                     b.ToTable("Membre");
                 });
 
-            modelBuilder.Entity("ForumDiscussion.Models.Message", b =>
+            modelBuilder.Entity("ForumDiscussion.Models.MessageModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,10 +84,6 @@ namespace ForumDiscussion.Migrations
 
                     b.Property<int>("SujetId")
                         .HasColumnType("int");
-
-                    b.Property<string>("attach")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -149,7 +145,7 @@ namespace ForumDiscussion.Migrations
                     b.ToTable("Sujet");
                 });
 
-            modelBuilder.Entity("ForumDiscussion.Models.Message", b =>
+            modelBuilder.Entity("ForumDiscussion.Models.MessageModel", b =>
                 {
                     b.HasOne("ForumDiscussion.Models.Membre", "Auteur")
                         .WithMany("Messages")
