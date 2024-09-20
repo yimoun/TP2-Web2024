@@ -9,6 +9,8 @@ namespace ForumDiscussion.ViewModels
         public int IdSujet { get; set; }
         public messListVM()
         {
+            Messages = new List<MessageModel>();
+            Reponse = new MessageModel();
         }
 
         public messListVM(List<MessageModel> messages, int idSujet)

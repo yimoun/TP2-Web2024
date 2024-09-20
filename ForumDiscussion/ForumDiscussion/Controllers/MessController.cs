@@ -18,6 +18,8 @@ namespace ForumDiscussion.Controllers
             _logger = logger;
             _forumContext = forumContext;
         }
+
+
         public IActionResult List(int idSujet)
         {
             List<MessageModel> messages = _forumContext.Message.Where(x => x.SujetId == idSujet).ToList();
@@ -34,14 +36,23 @@ namespace ForumDiscussion.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(messListVM vm)
         {
+            int AuteurId = 0;
             if (vm.Reponse != null)
             {
-                vm.Reponse.AuteurId = _userManager.GetUserId();
+                var userIdString = User.FindFirstValue(ClaimTypes.Sid);
+                if (int.TryParse(userIdString, out AuteurId))
+                {
+
+                    vm.Reponse.AuteurId = AuteurId;
+                }
+
+                //À revoir !
+               // vm.Messages = _forumContext.Message.Where(x => x.SujetId == vm.IdSujet).ToList();
 
                 _forumContext.Add(vm.Reponse);
                 _forumContext.SaveChanges();
-                
-                return RedirectToAction("List");
+
+                return View("List");
             }
 
             return View("List", vm);
