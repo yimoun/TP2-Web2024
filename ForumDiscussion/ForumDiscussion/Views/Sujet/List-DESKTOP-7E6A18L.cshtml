@@ -28,20 +28,19 @@
                     foreach (Sujet sujet in Model.Sujets)
                     {
                         <tr>
-                            <td class="description">
-                                <a asp-action="List" asp-controller="Mess" asp-route-idSujet="@sujet.Id">@Html.DisplayFor(model => sujet.Titre)</a><br>
-                                par @Html.DisplayFor(model => sujet.Auteur) » @Html.DisplayFor(model => sujet.DateCreation)
+                            <td class="description">@Html.DisplayFor(model => sujet.Titre)<br>
+                                par @Html.DisplayFor(model => sujet.Auteur) >> @Html.DisplayFor(model => sujet.DateCreation)
                             </td>
                             <td class="description">
                                 @Html.DisplayFor(model => sujet.Messages.Count)
                             </td>
-                            @*@foreach (MessageModel m in sujet?.Messages)
+                            @foreach (MessageModel m in sujet?.Messages)
                             {
                                 <td class="description">
                                     par @Html.DisplayFor(model => sujet.Auteur)<br>
                                     @Html.DisplayFor(model => sujet.DateCreation.Date)
                                 </td>
-                            }*@
+                            }
                         </tr>
                     }
                 }
@@ -55,18 +54,9 @@
         </div>
 
         <div class="row">
-            @if ((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
-            {
-                <div class="col-md-12">
-                    <a asp-action="Create" class="btn btn-primary">Nouveau Sujet</a>
-                </div>
-            }
-            else
-            {
-                <div class="col-md-12 text-dark">
-                    Mode lecture seule, vous pouvez pas ajouter un sujet
-                </div>
-            }
+            <div class="col-md-12">
+                <a asp-action="Create" class="btn btn-primary">Nouveau Sujet</a>
+            </div>
         </div>
     </div>
 </div>

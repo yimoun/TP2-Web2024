@@ -48,20 +48,33 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                <form asp-action="Post">
-                    <input type="hidden" asp-for="Reponse.Id" />
-                    <div class="form-group row">
-                        <label asp-for="Reponse.Contenu" class="col-form-label col-md-3 fw-bold"></label>
-                        <div class="col-md-9">
-                            <input asp-for="Reponse.Contenu" class="form-control" />
+            @if((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
+            {
+                <div class="col-md-12">
+                    <form asp-action="Post">
+                        <input type="hidden" asp-for="Reponse.Id" />
+                        <div class="form-group row">
+                            <label asp-for="Reponse.Contenu" class="col-form-label col-md-3 fw-bold"></label>
+                            <div class="col-md-9">
+                                <input asp-for="Reponse.Contenu" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <input type="submit" value="Répondre" class="btn btn-primary" />
-                    </div>
-                </form>
+                        <div class="text-center">
+                            <div class="col-md-12">
+                                <input type="submit" value="Répondre" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            }
+            else
+            {
+            <div class="col-md-12 text-dark">
+                Mode lecture seule, vous pouvez pas écrire un message de réponse !
             </div>
+            }
         </div>
+       
+      
     </div>
 </div>
