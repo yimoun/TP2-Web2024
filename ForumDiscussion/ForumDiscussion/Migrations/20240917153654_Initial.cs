@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ForumDiscussion.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -99,8 +99,6 @@ namespace ForumDiscussion.Migrations
                     NbLike = table.Column<int>(type: "int", nullable: false),
                     NbDislike = table.Column<int>(type: "int", nullable: false),
                     NbView = table.Column<int>(type: "int", nullable: false),
-                    attach = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     AuteurId = table.Column<int>(type: "int", nullable: false),
                     SujetId = table.Column<int>(type: "int", nullable: false)
                 },

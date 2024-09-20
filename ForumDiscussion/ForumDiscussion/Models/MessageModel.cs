@@ -10,7 +10,7 @@ namespace ForumDiscussion.Models
         public int NbLike { get; set; }
         public int NbDislike { get; set; }
         public int NbView { get; set; }
-        public string attach { get; set; }
+       
 
         [ForeignKey("Membre")]
         public int AuteurId { get; set; }

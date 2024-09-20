@@ -26,18 +26,19 @@ namespace ForumDiscussion.Controllers
         {
             int scount = 0;
             List<Section> sections = _forumContext.Section.ToList();
-
             List<Sujet> sujets = new List<Sujet>();
+            for (int i = 0; i < sections.Count; i++)
+            {
+                sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[i].Id).ToList();
+            }
+                //sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[0].Id).ToList();
+            List<MessageModel> messages = _forumContext.Message.Where(y => y.SujetId == sujets[0].Id).ToList();
 
-            sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[0].Id).ToList();
+            
 
-            //foreach (Section section in sections)
-            //{
-                
-            //}
             scount = sujets.Count;
 
-            SectionListVM vm = new SectionListVM(sections, scount);
+            SectionListVM vm = new SectionListVM(sections, scount, messages);
 
             return  View(vm);
         }

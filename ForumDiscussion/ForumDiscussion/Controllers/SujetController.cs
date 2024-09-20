@@ -20,7 +20,6 @@ namespace ForumDiscussion.Controllers
         {
 
             List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == idSection).ToList();
-
             SujetListVM vm = new SujetListVM(sujets);
 
             return View(vm);

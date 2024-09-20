@@ -42,7 +42,7 @@
                                     <td class="description">@Html.DisplayFor(model => sujet.Messages.Count)</td>
                                     if (sujet?.Messages != null)
                                     {
-                                        @foreach (MessageModel m in sujet.Messages)
+                                        @foreach (MessageModel m in Model.Messages)
                                         {
                                             <td class="description">
                                                 par @Html.DisplayFor(model => m.Auteur.Pseudo)<br />
