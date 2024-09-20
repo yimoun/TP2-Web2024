@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System;
 using ForumDiscussion.Data.Context;
+using Humanizer.Localisation;
 
 namespace Mastermind.Controllers
 {
@@ -66,15 +67,15 @@ namespace Mastermind.Controllers
 
                 membre.Profil = filename;
 
-                ModelStateEntry? imagePathModelState = ModelState["ImagePath"];
+                ModelStateEntry? imagePathModelState = ModelState["Profil"];
                 if (imagePathModelState != null)
                 {
                     imagePathModelState.ValidationState = ModelValidationState.Valid;
                 }
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 membre.Role = Membre.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
 
                 membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
@@ -84,8 +85,8 @@ namespace Mastermind.Controllers
 
                 //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
                 return RedirectToAction("Login", "Auth", new { Area = "" });
-            }
-            return View("CreateEdit", membre);
+           // }
+           // return View("CreateEdit", membre);
         }
 
 
@@ -113,6 +114,40 @@ namespace Mastermind.Controllers
             });
 
 
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Membre membre, IFormFile uploadfile)
+        {
+            if (membre != null)
+            {
+                Membre? existingMembre = _forumContext.Membre.Find(membre.Id);
+                if (existingMembre != null)
+                {
+                    // Déconnexion de l'utilisateur
+                    HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    
+
+                    //Le membre change de mot de passe: comme modification de profil
+                    membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
+
+                    _forumContext.SaveChanges();
+
+                    //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
+                    return RedirectToAction("Login", "Auth", new { Area = "" });
+                }
+                else
+                {
+                    return View("SiteMessage", new SiteMessageVM
+                    {
+                        Message = "Id de l'utilisateur introuvabkle ou inexistant"
+                    });;
+                }
+            }
+
+            return RedirectToAction("List");
         }
     }
 }
