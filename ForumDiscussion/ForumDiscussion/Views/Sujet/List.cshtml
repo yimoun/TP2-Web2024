@@ -55,9 +55,18 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
-                <a asp-action="Create" class="btn btn-primary">Nouveau Sujet</a>
-            </div>
+            @if ((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
+            {
+                <div class="col-md-12">
+                    <a asp-action="Create" class="btn btn-primary">Nouveau Sujet</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-12 text-dark">
+                    Mode lecture seule, vous pouvez pas ajouter un sujet
+                </div>
+            }
         </div>
     </div>
 </div>
