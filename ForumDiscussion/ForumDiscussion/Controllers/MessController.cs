@@ -2,6 +2,7 @@
 using ForumDiscussion.Models;
 using ForumDiscussion.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ForumDiscussion.Controllers
 {
@@ -17,17 +18,29 @@ namespace ForumDiscussion.Controllers
         public IActionResult List(int idSujet)
         {
             List<MessageModel> messages = _forumContext.Message.Where(x => x.SujetId == idSujet).ToList();
-            MessageModel reponse = new MessageModel();
-            messListVM vm = new messListVM(messages, reponse);
+            messListVM vm = new messListVM(messages, idSujet);
             return View(vm);
         }
 
-        public IActionResult Post(MessageModel reponse)
+        public IActionResult Create()
         {
-            _forumContext.Message.Add(reponse);
-            _forumContext.SaveChanges();
+            MessageModel message = new MessageModel();
 
-            return CreatedAtAction("List", new {id = reponse.Id}, reponse);
+            return View("CreateEdit", message);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(MessageModel message)
+        {
+            if (message != null)
+            {
+                _forumContext.Add(message);
+                _forumContext.SaveChanges();
+                
+                return RedirectToAction("List");
+            }
+            return View("CreateEdit", message);
         }
     }
 }
