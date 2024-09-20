@@ -24,23 +24,32 @@ namespace ForumDiscussion.Controllers
 
         public  IActionResult Index()
         {
-            int scount = 0;
+            List<SectionListVM> sectionListVMs = new List<SectionListVM>();
+
             List<Section> sections = _forumContext.Section.ToList();
-            List<Sujet> sujets = new List<Sujet>();
+            List<MessageModel> messages = new List<MessageModel>();
+
+
             for (int i = 0; i < sections.Count; i++)
             {
-                sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[i].Id).ToList();
+                List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[i].Id).ToList();
+                int nbSujets = sujets.Count;
+                int nbMessages = 0;
+
+                foreach (Sujet sujet in sujets)
+                {
+                    messages.Add(_forumContext.Sujet.)
+                }
+                MessageModel dernierMessage = new MessageModel();
+                //for (int j = 0; j < sujets.Count; j++)
+                //{
+                //    List<MessageModel> messages = _forumContext.Message.Where(y => y.SujetId == sujets[j].Id).ToList();
+                //}
+
+                sectionListVMs.Add(new SectionListVM(sections[i], nbSujets, nbMessages, dernierMessage));
             }
-                //sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[0].Id).ToList();
-            List<MessageModel> messages = _forumContext.Message.Where(y => y.SujetId == sujets[0].Id).ToList();
-
             
-
-            scount = sujets.Count;
-
-            SectionListVM vm = new SectionListVM(sections, scount, messages);
-
-            return  View(vm);
+             return  View(sectionListVMs);
         }
 
         public IActionResult Privacy()

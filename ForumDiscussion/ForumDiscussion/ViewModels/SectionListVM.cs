@@ -4,14 +4,16 @@ namespace ForumDiscussion.ViewModels
 {
     public class SectionListVM
     {
-        public List<Section> Sections { get; }
-        public List<MessageModel> Messages { get; }
-        public int count { get; }
-        public SectionListVM(List<Section> sections, int count, List<MessageModel> messages)
+        public Section Section { get; }
+        public int NbSujets { get; }
+        public int NbMessages { get; }
+        public MessageModel DernierMessage { get; }
+        public SectionListVM(Section section, int nbSujets, int nbMessages, MessageModel dernierMessage)
         {
-            Sections = sections;
-            this.count = count;
-            Messages = messages;
+            Section = section;
+            NbSujets = nbSujets;
+            NbMessages = nbMessages;
+            DernierMessage = dernierMessage;
         }
     }
 }

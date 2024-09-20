@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model SectionListVM
+@model List<SectionListVM>
 @{
     ViewData["Title"] = "Liste des sections";
 }
@@ -21,37 +21,31 @@
 
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
-                    <th class="description">@Html.DisplayNameFor(model => model.Sections[0].Titre)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model.Sections[0].Description)</th>
-                    <th class="description">@Html.DisplayNameFor(model => model.Sections[0].Sujets)</th>
-                    <th class="description">Messages</th>
+                   
+                        <th class="description">@Html.DisplayNameFor(model => model[0].Section.Titre)</th>
+                        <th class="description">@Html.DisplayNameFor(model => model[0].Section.Description)</th>
+                        <th class="description">@Html.DisplayNameFor(model => model[0].Section.Sujets)</th>
+                        <th class="description">Messages</th>
+                        
+                    
                     <th class="description">Dernier message</th>
                 </tr>
-                @if (Model.Sections.Count > 0)
+                @if (Model.Count > 0)
                 {
-                    foreach (Section s in Model.Sections)
+                    foreach (SectionListVM s in Model)
                     {
                         <tr>
-                            <td class="description"><a asp-action="List" asp-controller="Sujet" asp-route-idSection="@s.Id">@Html.DisplayFor(model => s.Titre)</a></td>
-                            <td class="description">@Html.DisplayFor(model => s.Description)</td>
-                            <td class="description">@Html.DisplayFor(model => model.count)</td>
-                            @if (s?.Sujets != null)
+                            <td class="description">
+                                <a asp-action="List" asp-controller="Sujet" asp-route-idSection="@s.Section.Id">@Html.DisplayFor(model => s.Section.Titre)</a>
+                            </td>
+                            <td class="description">@s.NbSujets</td>
+                            <td class="description">@s.NbMessages</td>
+                            <td class="description">
+                            @if (s.DernierMessage != null)
                             {
-                                @foreach (Sujet sujet in s.Sujets)
-                                {
-                                    <td class="description">@Html.DisplayFor(model => sujet.Messages.Count)</td>
-                                    if (sujet?.Messages != null)
-                                    {
-                                        @foreach (MessageModel m in Model.Messages)
-                                        {
-                                            <td class="description">
-                                                par @Html.DisplayFor(model => m.Auteur.Pseudo)<br />
-                                                @Html.DisplayFor(model => m.DatePublication)
-                                            </td>
-                                        }
-                                    }
-                                }
+                                <p>Aucun message</p>
                             }
+                            </td>
                         </tr>
                     }
                 }
