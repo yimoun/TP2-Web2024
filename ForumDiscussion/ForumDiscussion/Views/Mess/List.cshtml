@@ -51,8 +51,8 @@
             @if((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
             {
                 <div class="col-md-12">
-                    <form asp-action="Post">
-                        <input type="hidden" asp-for="Reponse.Id" />
+                    <form asp-action="Create">
+                        <input type="hidden" asp-for="Reponse.SujetId" />
                         <div class="form-group row">
                             <label asp-for="Reponse.Contenu" class="col-form-label col-md-3 fw-bold"></label>
                             <div class="col-md-9">

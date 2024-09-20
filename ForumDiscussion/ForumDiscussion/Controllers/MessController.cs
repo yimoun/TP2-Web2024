@@ -3,6 +3,8 @@ using ForumDiscussion.Models;
 using ForumDiscussion.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using static System.Collections.Specialized.BitVector32;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace ForumDiscussion.Controllers
 {
@@ -10,6 +12,7 @@ namespace ForumDiscussion.Controllers
     {
         private readonly ILogger<MessController> _logger;
         private readonly ForumContext _forumContext;
+        private readonly UserManager<IdentityUser> _userManager;
         public MessController(ILogger<MessController> logger, ForumContext forumContext)
         {
             _logger = logger;
@@ -24,23 +27,24 @@ namespace ForumDiscussion.Controllers
 
         public IActionResult Create()
         {
-            MessageModel message = new MessageModel();
-
-            return View("CreateEdit", message);
+            return View("CreateEdit");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(MessageModel message)
+        public IActionResult Create(messListVM vm)
         {
-            if (message != null)
+            if (vm.Reponse != null)
             {
-                _forumContext.Add(message);
+                vm.Reponse.AuteurId = _userManager.GetUserId();
+
+                _forumContext.Add(vm.Reponse);
                 _forumContext.SaveChanges();
                 
                 return RedirectToAction("List");
             }
-            return View("CreateEdit", message);
+
+            return View("List", vm);
         }
     }
 }

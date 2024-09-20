@@ -13,7 +13,7 @@ using System;
 using ForumDiscussion.Data.Context;
 using Humanizer.Localisation;
 
-namespace Mastermind.Controllers
+namespace ForumDiscussion.Controllers
 {
     public class MembreController : Controller
     {
