@@ -27,7 +27,7 @@ namespace ForumDiscussion.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Le nom d'utilisateur est requis")]
         [MaxLength(20, ErrorMessage = "Le nom d'utilisateur ne doit pas contenir 20 caractères")]
         // [Remote("MemberUsernameNotExists", "Member", "Admin", AdditionalFields = "Id", ErrorMessageResourceName = "UsernameAlreadyExists", ErrorMessageResourceType = typeof(Resource))]
-        public string Username { get; set; }
+        public string NomUtilisateur { get; set; }
 
 
         [DataType(DataType.Password)]
@@ -54,7 +54,7 @@ namespace ForumDiscussion.Models
             Id = id;
             Pseudo = pseudo;
             Courriel = courriel;
-            Username = username;
+            NomUtilisateur = username;
             MotDePasse = motDePasse;
             Role = role;
             Profil = profil;

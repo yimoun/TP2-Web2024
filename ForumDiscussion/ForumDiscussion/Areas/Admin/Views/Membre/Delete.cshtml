@@ -17,14 +17,14 @@
     <div class="row">
         <div class="col-md-6">
             <div class="image-section">
-                <img src="~/img/Members/@Model.Profil" alt="@Html.DisplayFor(model => Model.Username)" class="img-thumbnail img-fluid" />
+                <img src="~/img/Members/@Model.Profil" alt="@Html.DisplayFor(model => Model.NomUtilisateur)" class="img-thumbnail img-fluid" />
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-section">
                 <div class="row details-row">
-                    <div class="col-sm-6">@Html.DisplayNameFor(model => model.Username) : </div>
-                    <div class="col-sm-6">@Html.DisplayFor(model => model.Username)</div>
+                    <div class="col-sm-6">@Html.DisplayNameFor(model => model.NomUtilisateur) : </div>
+                    <div class="col-sm-6">@Html.DisplayFor(model => model.NomUtilisateur)</div>
                 </div>
                 <hr/>
                 <form asp-action="Delete">

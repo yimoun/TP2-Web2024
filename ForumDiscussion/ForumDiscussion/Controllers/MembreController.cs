@@ -26,14 +26,6 @@ namespace ForumDiscussion.Controllers
             _forumContext = forumContext;
         }
 
-        public async Task<IActionResult> Logout()
-        {
-        
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return RedirectToAction("Index", "Home"); 
-        }
-
         public IActionResult Create()
         {
             Membre membre = new Membre();
@@ -47,7 +39,7 @@ namespace ForumDiscussion.Controllers
             if (membre != null && uploadfile != null && uploadfile.Length > 0)
             {
                 //On ne peut pas avoir deux membres avec le meme username
-                Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == membre.Username).FirstOrDefault();
+                Membre? existingMembre = _forumContext.Membre.Where(m => m.NomUtilisateur == membre.NomUtilisateur).FirstOrDefault();
 
                 if (existingMembre != null)  //Je pense que le "remote" le fait déja !
                 {
@@ -64,8 +56,15 @@ namespace ForumDiscussion.Controllers
 
                 using FileStream stream = System.IO.File.Create(pathToSave);
                 uploadfile.CopyTo(stream);
-
-                membre.Profil = filename;
+                if (filename != null) {membre.Profil = filename; }
+                else
+                {
+                    return View("SiteMessage", new SiteMessageVM
+                    {
+                        Message = "L'image de profil est inexistant!"
+                    });
+                }
+                
 
                 ModelStateEntry? imagePathModelState = ModelState["Profil"];
                 if (imagePathModelState != null)
@@ -74,8 +73,8 @@ namespace ForumDiscussion.Controllers
                 }
             }
 
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 membre.Role = Membre.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
 
                 membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
@@ -85,8 +84,8 @@ namespace ForumDiscussion.Controllers
 
                 //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
                 return RedirectToAction("Login", "Auth", new { Area = "" });
-           // }
-           // return View("CreateEdit", membre);
+            }
+            return View("CreateEdit", membre);
         }
 
 
@@ -124,11 +123,11 @@ namespace ForumDiscussion.Controllers
             if (membre != null)
             {
                 Membre? existingMembre = _forumContext.Membre.Find(membre.Id);
-                if (existingMembre != null)
+                if (existingMembre != null && ModelState.IsValid)
                 {
                     // Déconnexion de l'utilisateur
                     HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                    
+
 
                     //Le membre change de mot de passe: comme modification de profil
                     membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
@@ -143,7 +142,7 @@ namespace ForumDiscussion.Controllers
                     return View("SiteMessage", new SiteMessageVM
                     {
                         Message = "Id de l'utilisateur introuvabkle ou inexistant"
-                    });;
+                    });
                 }
             }
 

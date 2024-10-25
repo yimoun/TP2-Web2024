@@ -7,6 +7,7 @@ using System.Diagnostics;
 using ForumDiscussion.Models;
 using static System.Collections.Specialized.BitVector32;
 using Section = ForumDiscussion.Models.Section;
+using System.Collections.Generic;
 
 namespace ForumDiscussion.Controllers
 {
@@ -27,27 +28,36 @@ namespace ForumDiscussion.Controllers
             List<SectionListVM> sectionListVMs = new List<SectionListVM>();
 
             List<Section> sections = _forumContext.Section.ToList();
+            Dictionary<int, List<MessageModel>> messagesParSujets = new Dictionary<int, List<MessageModel>>();
             List<MessageModel> messages = new List<MessageModel>();
+            List<MessageModel> derniersMessages = new List<MessageModel>();
 
 
             for (int i = 0; i < sections.Count; i++)
             {
                 List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[i].Id).ToList();
                 int nbSujets = sujets.Count;
-                int nbMessages = 0;
-
-                foreach (Sujet sujet in sujets)
-                {
-                    messages.Add(_forumContext.Sujet.)
-                }
+                MessageModel dernierMessagePossible = new MessageModel();
                 MessageModel dernierMessage = new MessageModel();
-                //for (int j = 0; j < sujets.Count; j++)
-                //{
-                //    List<MessageModel> messages = _forumContext.Message.Where(y => y.SujetId == sujets[j].Id).ToList();
-                //}
+                for (int j = 0; j < nbSujets; j++)
+                {
+                    messages = _forumContext.Message.Where(m => m.SujetId == sujets[j].Id).ToList();
+                    messagesParSujets.Add(j, messages);
+                }
+                int nbMessages = messagesParSujets.Count;
+                for (int k = 0; k < nbSujets; k++)
+                {
+                    dernierMessage = messagesParSujets[k].OrderByDescending(dm => dm.DatePublication).First();
+                    derniersMessages.Add(dernierMessage);
+                }
+                for (int L = 0;L < derniersMessages.Count; L++)
+                {
+                    dernierMessage = derniersMessages.OrderByDescending(dm => dm.DatePublication).First();
+                }
 
                 sectionListVMs.Add(new SectionListVM(sections[i], nbSujets, nbMessages, dernierMessage));
             }
+
             
              return  View(sectionListVMs);
         }

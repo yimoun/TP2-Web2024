@@ -18,11 +18,25 @@ namespace ForumDiscussion.Controllers
         }
         public IActionResult List(int idSection)
         {
-
-            List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == idSection).ToList();
-            SujetListVM vm = new SujetListVM(sujets);
-
-            return View(vm);
+            int nbReponses = 0;
+            List<SujetListVM> sujetListVMs = new List<SujetListVM>();
+            List<Sujet> sujets = _forumContext.Sujet.Where(ss => ss.Id == idSection).ToList();
+            List<MessageModel> messages = new List<MessageModel>();
+            for (int i = 0; i < sujets.Count; i++)
+            {
+                MessageModel dernierMessage = new MessageModel();
+                
+                for (int j = 0; j < sujets.Count; j++)
+                {
+                    if (sujets[j].Messages != null)
+                    {
+                        dernierMessage = sujets[j].Messages.OrderByDescending(dm => dm.DatePublication).First();
+                        nbReponses = sujets[j].Messages.OrderBy(dm => dm.DatePublication).Skip(1).Count();
+                    }
+                    sujetListVMs.Add(new SujetListVM(sujets[j], nbReponses, dernierMessage));
+                }
+            }
+            return View(sujetListVMs);
         }
     }
 }

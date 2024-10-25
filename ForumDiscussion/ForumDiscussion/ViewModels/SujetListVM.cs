@@ -4,10 +4,14 @@ namespace ForumDiscussion.ViewModels
 {
     public class SujetListVM
     {
-        public List<Sujet> Sujets { get; set; }
-        public SujetListVM(List<Sujet> sujets)
+        public Sujet Sujet { get; set; }
+        public int NbReponses { get; set; }
+        public MessageModel DernierMessage { get; set; }
+        public SujetListVM(Sujet sujets, int nbReponses, MessageModel dernierMessage)
         {
-            Sujets = sujets;
+            Sujet = sujet;
+            NbReponses = nbReponses;
+            DernierMessage = dernierMessage;
         }
     }
 }
