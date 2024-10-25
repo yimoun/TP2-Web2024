@@ -12,18 +12,11 @@
 
             @if (!string.IsNullOrWhiteSpace(Context.Request.Query["ReturnUrl"]))
             {
-                if (User?.Identity?.IsAuthenticated ?? false)
+                if (User?.Identity?.IsAuthenticated == false)
                 {
                     <div class="alert alert-warning" role="alert">
                         Accès refusé, veuillez vous connecter avec un autre utilisateur.
                         <br /><a asp-area="" asp-controller="Home" asp-action="Index">Retour à la page d'accueil</a>
-                    </div>
-                }
-                else
-                {
-                    <div class="alert alert-warning" role="alert">
-                        Accès refusé, veuillez vous connecter avec un autre utilisateur.
-                        <br /><a asp-area="" asp-controller="Home" asp-action="Index">Retour à la page accueil</a>
                     </div>
                 }
             }
@@ -54,7 +47,7 @@
                 </form>
             </div>
             <div class="links">
-                <a asp-controller="Member" asp-action="Create">Creer un nouveau compte</a>
+                <a asp-controller="Membre" asp-action="Create">Créer un nouveau compte</a>
             </div>
         </div>
     </div>

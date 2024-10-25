@@ -6,13 +6,13 @@ namespace ForumDiscussion.ViewModels;
 
     public class AuthLoginVM
     {
-        [Display(Name = "Username")]
+        [Display(Name = "Nom d'utilisateur")]
         [Required(AllowEmptyStrings = false)]
         [StringLength(20)]
         public string Username { get; set; } = string.Empty;
 
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mot de passe")]
         [Required(AllowEmptyStrings = false)]
         [StringLength(20)]
         public string Password { get; set; } = string.Empty;
