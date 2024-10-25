@@ -34,7 +34,7 @@ namespace ForumDiscussion.Controllers
         {
             if (ModelState.IsValid)
             {
-                Membre? existingMembre = _forumContext.Membre.Where(m => m.NomUtilisateur == viewModel.Username).FirstOrDefault();
+                Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == viewModel.Username).FirstOrDefault();
 
                 if (existingMembre != null)
                 {

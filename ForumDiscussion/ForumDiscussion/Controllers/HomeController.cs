@@ -31,10 +31,11 @@ namespace ForumDiscussion.Controllers
             Dictionary<int, List<MessageModel>> messagesParSujets = new Dictionary<int, List<MessageModel>>();
             List<MessageModel> messages = new List<MessageModel>();
             List<MessageModel> derniersMessages = new List<MessageModel>();
-
+            List<Membre> membres = _forumContext.Membre.ToList();
 
             for (int i = 0; i < sections.Count; i++)
             {
+                
                 List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[i].Id).ToList();
                 int nbSujets = sujets.Count;
                 MessageModel dernierMessagePossible = new MessageModel();
@@ -45,16 +46,18 @@ namespace ForumDiscussion.Controllers
                     messagesParSujets.Add(j, messages);
                 }
                 int nbMessages = messagesParSujets.Count;
-                for (int k = 0; k < nbSujets; k++)
+                for (int k = 0; k < nbMessages; k++)
                 {
-                    dernierMessage = messagesParSujets[k].OrderByDescending(dm => dm.DatePublication).First();
-                    derniersMessages.Add(dernierMessage);
+                    dernierMessagePossible = messagesParSujets[k].OrderByDescending(dm => dm.DatePublication).First();
+                    derniersMessages.Add(dernierMessagePossible);
                 }
                 for (int L = 0;L < derniersMessages.Count; L++)
                 {
                     dernierMessage = derniersMessages.OrderByDescending(dm => dm.DatePublication).First();
                 }
-
+                dernierMessage.Auteur = _forumContext.Membre.Where(m => m.Id == dernierMessage.AuteurId).FirstOrDefault();
+                messagesParSujets.Clear();
+                derniersMessages.Clear();
                 sectionListVMs.Add(new SectionListVM(sections[i], nbSujets, nbMessages, dernierMessage));
             }
 

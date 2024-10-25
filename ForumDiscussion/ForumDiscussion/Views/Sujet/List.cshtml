@@ -19,29 +19,26 @@
 
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
-                    <th class="description">@Html.DisplayNameFor(model => model.Sujets[0].Titre)</th>
+                    <th class="description">@Html.DisplayNameFor(model => model[0].Sujet.Titre)</th>
                     <th class="description">Réponse</th>
-                    <th class="action">Dernier Message</th>
+                    <th class="description">Dernier Message</th>
                 </tr>
                 @if (Model.Count > 0)
                 {
-                    foreach (SujetListVM sujets in Model)
+                    foreach (SujetListVM sujetVM in Model)
                     {
                         <tr>
                             <td class="description">
-                                <a asp-action="List" asp-controller="Mess" asp-route-idSujet="@sujet.Id">@Html.DisplayFor(model => sujet.Titre)</a><br>
-                                par @Html.DisplayFor(model => sujet.Auteur) » @Html.DisplayFor(model => sujet.DateCreation)
+                                <a asp-action="List" asp-controller="Mess" asp-route-idSujet="@sujetVM.Sujet.Id">@Html.DisplayFor(model => sujetVM.Sujet.Titre)</a><br>
+                                par @Html.DisplayFor(model => sujetVM.Sujet.Auteur) » @Html.DisplayFor(model => sujetVM.Sujet.DateCreation)
                             </td>
                             <td class="description">
-                                @Html.DisplayFor(model => sujet.Messages.Count)
+                                @Html.DisplayFor(model => sujetVM.NbReponses)
                             </td>
-                            @*@foreach (MessageModel m in sujet?.Messages)
-                            {
-                                <td class="description">
-                                    par @Html.DisplayFor(model => sujet.Auteur)<br>
-                                    @Html.DisplayFor(model => sujet.DateCreation.Date)
-                                </td>
-                            }*@
+                            <td class="description">
+                                par @Html.DisplayFor(model => sujetVM.DernierMessage.Auteur.Username)<br />
+                                @Html.DisplayFor(model => sujetVM.DernierMessage.DatePublication.Date)
+                            </td>
                         </tr>
                     }
                 }

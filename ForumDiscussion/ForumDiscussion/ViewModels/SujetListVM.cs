@@ -9,7 +9,7 @@ namespace ForumDiscussion.ViewModels
         public MessageModel DernierMessage { get; set; }
         public SujetListVM(Sujet sujets, int nbReponses, MessageModel dernierMessage)
         {
-            Sujet = sujet;
+            Sujet = sujets;
             NbReponses = nbReponses;
             DernierMessage = dernierMessage;
         }

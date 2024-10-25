@@ -39,7 +39,7 @@ namespace ForumDiscussion.Controllers
             if (membre != null && uploadfile != null && uploadfile.Length > 0)
             {
                 //On ne peut pas avoir deux membres avec le meme username
-                Membre? existingMembre = _forumContext.Membre.Where(m => m.NomUtilisateur == membre.NomUtilisateur).FirstOrDefault();
+                Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == membre.Username).FirstOrDefault();
 
                 if (existingMembre != null)  //Je pense que le "remote" le fait déja !
                 {

@@ -23,6 +23,11 @@ namespace ForumDiscussion.Controllers
         public IActionResult List(int idSujet)
         {
             List<MessageModel> messages = _forumContext.Message.Where(x => x.SujetId == idSujet).ToList();
+            for (int i = 0; i < messages.Count; i++)
+            {
+                messages[i].Auteur = _forumContext.Membre.Where(m => m.Id == messages[i].AuteurId).FirstOrDefault();
+            }
+            
             messListVM vm = new messListVM(messages, idSujet);
             return View(vm);
         }
@@ -44,6 +49,7 @@ namespace ForumDiscussion.Controllers
                 {
 
                     vm.Reponse.AuteurId = AuteurId;
+                    vm.Reponse.SujetId = vm.IdSujet;
                 }
 
                 //À revoir !

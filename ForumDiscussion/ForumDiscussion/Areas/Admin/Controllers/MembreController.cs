@@ -52,7 +52,7 @@ namespace ForumDiscussion.Areas.Admin.Controllers
             if (membre != null && uploadfile != null && uploadfile.Length > 0)
             {
                 //On ne peut pas avoir deux membres avec le meme username
-                Membre? existingMembre = _forumContext.Membre.Where(m => m.NomUtilisateur == membre.NomUtilisateur).FirstOrDefault();
+                Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == membre.Username).FirstOrDefault();
 
                 if (existingMembre == null)
                 {
@@ -110,7 +110,7 @@ namespace ForumDiscussion.Areas.Admin.Controllers
             if (membreChoice != null)
             {
                 // On ne peut pas avoir deux membres avec le meme username
-                Membre? existingmembre = _forumContext.Membre.Where(m => m.NomUtilisateur == membreChoice.NomUtilisateur).FirstOrDefault();
+                Membre? existingmembre = _forumContext.Membre.Where(m => m.Username == membreChoice.Username).FirstOrDefault();
 
                 //On s'assure que dans la BD il n'existe pas déja un membre avec le meme username
                 if (existingmembre != null && existingmembre.Id != membreChoice.Id)

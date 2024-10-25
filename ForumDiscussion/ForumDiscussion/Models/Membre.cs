@@ -19,15 +19,15 @@ namespace ForumDiscussion.Models
         public string Pseudo { get; set; } = String.Empty;
 
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
+        [Display(Name = "Courriel")]
         [Required(AllowEmptyStrings = false, ErrorMessage= "Un membre doit avoir une adresse courriel")]
         public string Courriel { get; set; }
 
-        [Display(Name = "Username")]
+        [Display(Name = "Nom d'utilisateur")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Le nom d'utilisateur est requis")]
         [MaxLength(20, ErrorMessage = "Le nom d'utilisateur ne doit pas contenir 20 caractères")]
         // [Remote("MemberUsernameNotExists", "Member", "Admin", AdditionalFields = "Id", ErrorMessageResourceName = "UsernameAlreadyExists", ErrorMessageResourceType = typeof(Resource))]
-        public string NomUtilisateur { get; set; }
+        public string Username { get; set; }
 
 
         [DataType(DataType.Password)]
@@ -54,7 +54,7 @@ namespace ForumDiscussion.Models
             Id = id;
             Pseudo = pseudo;
             Courriel = courriel;
-            NomUtilisateur = username;
+            Username = username;
             MotDePasse = motDePasse;
             Role = role;
             Profil = profil;

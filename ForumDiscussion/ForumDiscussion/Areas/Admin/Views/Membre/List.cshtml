@@ -18,7 +18,7 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model[0].Pseudo)</th>
                     <th>@Html.DisplayNameFor(model => model[0].Courriel)</th>
-                    <th>@Html.DisplayNameFor(model => model[0].NomUtilisateur)</th>
+                    <th>@Html.DisplayNameFor(model => model[0].Username)</th>
                     <th>@Html.DisplayNameFor(model => model[0].Role)</th>
                     <th class="action">Actions</th>
                 </tr>
@@ -29,7 +29,7 @@
                         <tr>
                             <td>@Html.DisplayFor(model => membre.Pseudo)</td>
                             <td>@Html.DisplayFor(model => membre.Courriel)</td>
-                            <td>@Html.DisplayFor(model => membre.NomUtilisateur)</td>
+                            <td>@Html.DisplayFor(model => membre.Username)</td>
                             <td>@Html.DisplayFor(model => membre.Role)</td>
                             <td>
                                 <a asp-action="Edit" asp-route-id="@membre.Id">
