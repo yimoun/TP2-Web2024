@@ -1,0 +1,50 @@
+﻿@model ForumDiscussion.ViewModels.SujetCreateEditVM
+
+@{
+    ViewData["Title"] = Model.sujet.Id == 0 ? "Créer un nouveau sujet" : "Modifier le sujet";
+}
+
+<div id="create-member-page">
+    <div class="row">
+        <div class="offset-md-1 offset-lg-2 col-md-10 col-lg-8">
+            <div class="page-title">
+                <h2>@(Model.sujet.Id == 0 ? "Création d'un nouveau sujet" : "Modification du sujet")</h2>
+            </div>
+
+            <div class="form-section">
+                <form asp-action="@(Model.sujet.Id == 0 ? "Create" : "Edit")">
+                    <input type="hidden" asp-for="sujet.Id" />
+                    <input type="hidden" asp-for="sujet.SectionId" />
+                    <input type="hidden" asp-for="IdSection" />
+
+                    <div class="form-horizontal">
+                        <hr />
+                        <div class="form-group row">
+                            <label asp-for="sujet.Titre" class="col-form-label col-md-3"></label>
+                            <div class="col-md-9">
+                                <input asp-for="sujet.Titre" class="form-control" />
+                                <span asp-validation-for="sujet.Titre" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                       
+                        <div class="form-group row">
+                            <label asp-for="messageSujet.Contenu" class="col-form-label col-md-3"></label>
+                            <div class="col-md-9">
+                                <textarea asp-for="messageSujet.Contenu" class="form-control"></textarea>
+                                <span asp-validation-for="messageSujet.Contenu" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="text-center">
+                            <input type="submit" value="@(Model.sujet.Id == 0 ? "Créer un nouveau sujet" : "Enregistrer les modifications")" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="links">
+                <a asp-controller="Auth" asp-action="Login">Retour à l'accueil</a>
+            </div>
+        </div>
+    </div>
+</div>

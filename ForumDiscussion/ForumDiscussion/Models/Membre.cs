@@ -35,16 +35,14 @@ namespace ForumDiscussion.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Un mot de passe est requis.")]
         [MaxLength(20, ErrorMessage = "Le mot de passe ne doit pas contenir 20 caractères")]
         public string MotDePasse { get; set; }
-       // public bool IsActive { get; set; } = true;
-       // public Guid ActivationCode { get; set; } = Guid.Empty;
         public string Role { get; set; } = ROLE_STANDARD;
 
         [Display(Name = "Image de profil")]
-        [Required(AllowEmptyStrings = false, ErrorMessage ="Une image de profil est requise")]
-        public string Profil { get; set; } = string.Empty;
 
-        public List<MessageModel>? Messages { get; set; }
-        public List<Sujet>? Sujets { get; set; }
+        public string? Profil { get; set; } = string.Empty;
+
+        public List<MessageModel>? Messages { get; set; } = new List<MessageModel> { };
+        public List<Sujet>? Sujets { get; set; } = new List<Sujet> { };
 
         // Constructeur vide requis pour la désérialisation
         public Membre() { }

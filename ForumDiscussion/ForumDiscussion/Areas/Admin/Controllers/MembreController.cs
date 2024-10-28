@@ -12,6 +12,7 @@ using System.Data;
 using System.Diagnostics.Metrics;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ForumDiscussion.Helpers;
+using System;
 
 namespace ForumDiscussion.Areas.Admin.Controllers
 {
@@ -31,7 +32,8 @@ namespace ForumDiscussion.Areas.Admin.Controllers
         public IActionResult List()
         {
             List<Membre> membres = new List<Membre>();
-            membres = _forumContext.Membre.ToList();
+            membres = _forumContext.Membre.OrderBy(m => m.Username).ToList();  //Trier en ordre alphabétique la liste des membres.
+
 
             return View(membres);
         }
@@ -39,7 +41,7 @@ namespace ForumDiscussion.Areas.Admin.Controllers
         public IActionResult Create()
         {
 
-            Membre defautMember = new Membre(0, "", "", "", "", "", "");
+            Membre defautMember = new Membre();
 
             MembreCreateEditVM vm = new MembreCreateEditVM(defautMember, new List<string> { "Admin", "Standard"});
 
@@ -47,41 +49,29 @@ namespace ForumDiscussion.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Membre membre, IFormFile uploadfile)
+        public IActionResult Create(Membre membre)
         {
-            if (membre != null && uploadfile != null && uploadfile.Length > 0)
+            if (membre != null)
             {
                 //On ne peut pas avoir deux membres avec le meme username
                 Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == membre.Username).FirstOrDefault();
 
-                if (existingMembre == null)
+                if(existingMembre != null)
                 {
-                    string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img\\Members", uploadfile.FileName);
-
-                    if (!System.IO.File.Exists(pathToSave))     //Si le fichier n'existe pas pour le path spécifié il est crée
-                    {
-                        using FileStream stream = System.IO.File.Create(pathToSave);
-                        uploadfile.CopyTo(stream);
-                    }
-                    membre.Profil = uploadfile.FileName;
-
-                    ModelStateEntry? imagePathModelState = ModelState["member.Profil"];
-                    if (imagePathModelState != null)
-                    {
-                        imagePathModelState.ValidationState = ModelValidationState.Valid;
-                    }
+                    ModelState.AddModelError("Username", "Ce nom d'utilisateur existe déjà !");
                 }
 
-                
+                if (!ModelState.IsValid)
+                {
+                    return View("CreateEdit", new MembreCreateEditVM(membre, new List<string> { "Admin", "Standard" }));
+                }
 
-                //if (ModelState.IsValid) //Si toutes les validations du modèle réussissent
-                
-                    membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
+                membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
 
-                    _forumContext.Add(membre);
-                    _forumContext.SaveChanges();
+                _forumContext.Add(membre);
+                _forumContext.SaveChanges();
 
-                    return RedirectToAction("List", "Membre");
+                return RedirectToAction("List", "Membre");
                 
             }
 
@@ -105,24 +95,40 @@ namespace ForumDiscussion.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Membre membreChoice)
+        public IActionResult Edit(MembreCreateEditVM membreChoiceVM)
         {
-            if (membreChoice != null)
+            if (membreChoiceVM != null && membreChoiceVM.Membre != null)
             {
-                // On ne peut pas avoir deux membres avec le meme username
-                Membre? existingmembre = _forumContext.Membre.Where(m => m.Username == membreChoice.Username).FirstOrDefault();
+                // Vérifie s'il existe un autre membre avec le même username
+                var existingMembre = _forumContext.Membre
+                    .FirstOrDefault(m => m.Username == membreChoiceVM.Membre.Username);
 
-                //On s'assure que dans la BD il n'existe pas déja un membre avec le meme username
-                if (existingmembre != null && existingmembre.Id != membreChoice.Id)
+                if (existingMembre != null && existingMembre.Id != membreChoiceVM.Membre.Id)
                 {
-                    ModelState.AddModelError("Description", "Cette username existe déjà.");
+                    ModelState.AddModelError("Membre.Username", "Ce nom d'utilisateur existe déjà pour un autre utilisateur.");
                 }
 
-                _forumContext.Update(membreChoice);
-                _forumContext.SaveChanges();
+                var originalMembre = _forumContext.Membre.Find(membreChoiceVM.Membre.Id);
+                if (originalMembre != null)
+                {
+                    // Mettre à jour les champs nécessaires
+                    originalMembre.Username = membreChoiceVM.Membre.Username;
+                    originalMembre.Courriel = membreChoiceVM.Membre.Courriel;
+                    originalMembre.Role = membreChoiceVM.Membre.Role;
+
+                    // Mettre à jour le mot de passe uniquement si une nouvelle valeur est fournie
+                    if (!string.IsNullOrWhiteSpace(membreChoiceVM.Membre.MotDePasse))
+                    {
+                        originalMembre.MotDePasse = CryptographyHelper.HashPassword(membreChoiceVM.Membre.MotDePasse);
+                    }
+
+                    _forumContext.SaveChanges();
+                }
+
+                return RedirectToAction("List");
             }
 
-            return RedirectToAction("List");
+            return View("AdminMessage", new AdminMessageVM("Une erreur est survenue lors de la mise à jour du membre."));
         }
 
         public IActionResult Delete(int id)

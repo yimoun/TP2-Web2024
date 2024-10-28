@@ -54,7 +54,7 @@
                         <div class="form-group row">
                             <label asp-for="Membre.MotDePasse" class="col-form-label col-md-3 gauche"></label>
                             <div class="col-md-9 gauche">
-                                <input asp-for="Membre.MotDePasse" class="form-control" />
+                                <input asp-for="Membre.MotDePasse" class="form-control"/>
                                 <span asp-validation-for="Membre.MotDePasse" class="text-danger"></span>
                             </div>
                         </div>
@@ -67,16 +67,7 @@
                                 <span asp-validation-for="Membre.Role" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="uploadfile" class="col-form-label col-md-3">Membre.Profil</label>
-                            <div class="col-md-9">
-                                <input type="file" id="uploadfile" name="uploadfile" accept=".jpg,.png,.gif" />
-                                <div>
-                                    <span asp-validation-for="Membre.Profil" class="text-danger"></span>
-                                </div>
-                            </div>
-                        <hr />
-                        </div>
+                    </div>
                     <div class="text-center">
                         <input type="submit" value="@textAction" class="btn btn-primary" />
                     </div>
@@ -92,10 +83,3 @@
 
     </div>
 </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    }

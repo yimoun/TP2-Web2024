@@ -32,7 +32,7 @@
                         @if ((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
                         {
                             <li>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Membre" asp-action="Filter" asp-route-id=userId asp-fragment="rules">Modifier votre profil</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Membre" asp-action="Edit" asp-route-id="@User.FindFirst(ClaimTypes.Sid)?.Value"  asp-fragment="rules">Modifier votre profil</a>
                             </li>
                         }
                         else
@@ -63,7 +63,7 @@
     <footer class="border-top footer text-muted">
         <div class="container-fluid">
             &copy; 2023 - Démo ASP.NET Core - 
-            <a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a> |
+            <a asp-area="" asp-controller="Home" asp-action="Index">Forum de discussion</a> |
             <a asp-area="Admin" asp-controller="Home" asp-action="Index">Administration</a>
         </div>
     </footer>

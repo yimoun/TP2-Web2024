@@ -22,19 +22,37 @@ namespace ForumDiscussion.Areas.Admin.Controllers
             _forumContext = forumContext;
         }
 
-        public IActionResult List()
+        public IActionResult List(string sortOrder, string filter)
         {
-            List<Section> sections = new List<Section>();
-            sections = _forumContext.Section.ToList();
+            // Conserve le tri et le filtre dans ViewData pour réutilisation dans la vue
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["CurrentFilter"] = filter;
 
-            return View(sections);
+            var sections = _forumContext.Section.AsQueryable();
+
+            //Appliquer le filtre si séclectionné
+            if (!string.IsNullOrEmpty(filter))
+            {
+                sections = sections.Where(s => s.Titre.Contains(filter));
+            }
+
+            //Appliquer le tri en fonction du paramètre
+            sections = sortOrder switch
+            {
+                "ordre_asc" => sections.OrderBy(s => s.Titre),
+                "ordre_desc" => sections.OrderByDescending(s => s.Titre),
+                _ => sections.OrderBy(s => s.Titre) // Tri par défaut
+            };
+
+
+
+            return View(sections.ToList());
         }
 
-        /*C'est à ce niveau qu'on se rend premièrement avant d'aller dans la page d'édition/ajout*/
         public IActionResult Create()
         {
 
-            Section defautSection = new Section("Titre de la section", "Description de la section");
+            Section defautSection = new();
 
             return View("CreateEdit", defautSection);
         }
@@ -45,24 +63,21 @@ namespace ForumDiscussion.Areas.Admin.Controllers
         {
             if(section != null)
             {
-                //On ne peut pas avoir deux sextions avec le meme titre
-                Section? existingsection = _forumContext.Section.Where(s => s.Titre == section.Titre).FirstOrDefault();
+                // Vérification pour éviter les doublons de titre
+                Section? existingSection = _forumContext.Section.FirstOrDefault(s => s.Titre == section.Titre);
 
-                if (existingsection != null)
+                if (existingSection != null)
                 {
-                    ModelState.AddModelError("Section.Titre", "Ce titre de section existe déja !");
+                    ModelState.AddModelError("Titre", "Ce titre de section existe déjà !");
                 }
 
                 if (!ModelState.IsValid)
                 {
-                    // Si le modèle n'est pas valide, on retourne à la vue CreateEdit où les messages seront affichés.
-                    // Le ViewModèle reçu en POST n'est pas complet (seulement les info dans le <form> sont conservées),
-                    // il faut donc réaffecter le choix de Section.
-
                     return View("CreateEdit", section);
                 }
 
-                _forumContext.Add(section); 
+                // Ajout de la nouvelle section à la base de données
+                _forumContext.Add(section);
                 _forumContext.SaveChanges();
             }
 
@@ -91,12 +106,11 @@ namespace ForumDiscussion.Areas.Admin.Controllers
             if (sectionChoice != null)
             {
                 // On ne peut pas avoir deux sextions avec le meme titre
-                Section? existingsection = _forumContext.Section.Where(s => s.Titre == sectionChoice.Titre).FirstOrDefault();
+                Section? existingSection = _forumContext.Section.FirstOrDefault(s => s.Titre == sectionChoice.Titre && s.Id != sectionChoice.Id);
 
-                //On s'assure que dans la BD il n'existe pas déja un choix de Menu avec la meme description
-                if (existingsection != null && existingsection.Id != sectionChoice.Id)
+                if (existingSection != null)
                 {
-                    ModelState.AddModelError("Description", "Le titre de cette section existe déjà.");
+                    ModelState.AddModelError("Titre", "Le titre de cette section existe déjà.");
                 }
 
                 if (!ModelState.IsValid)

@@ -24,17 +24,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="image-section">
-                <img src="~/img/Members/@Model.Profil" alt="@Html.DisplayFor(model => model.Username)" class="img-thumbnail img-fluid" />
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="form-section">
+        <div class="form-section">
                 <form asp-action="@formAction" enctype="multipart/form-data">
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="Profil" />
 
                     <div class="form-horizontal">
                         <hr />
@@ -66,28 +58,25 @@
                                 <span asp-validation-for="MotDePasse" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="uploadfile" class="col-form-label col-md-3">Image de profil</label>
-                            <div class="col-md-9">
-                                <input type="file" id="uploadfile" name="uploadfile" accept=".jpg,.png,.gif" />
-                                <div>
-                                    <span asp-validation-for="Profil" class="text-danger"></span>
-                                </div>
-                            </div>
+                    <div class="form-group row">
+                        <label asp-for="Profil" class="col-md-3 col-form-label">Téléverser une image de profil :</label>
+                        <div class="col-md-9">
+                            <input asp-for="Profil" type="file" id="uploadfile" name="uploadfile" accept=".jpg,.png,.gif,.jpeg" class="form-control">
+                            <span asp-validation-for="Profil" class="text-danger"></span>
                         </div>
+                    </div>
                         <hr />
                     </div>
                     <div class="text-center">
                         <input type="submit" value="@buttonText" class="btn btn-primary" />
                     </div>
                 </form>
-            </div>
         </div>
     </div>
 
     <div class="row RedirectToLogin">
         <div class="col-12">
-            <h2>Une fois votre compte créé/modifié, vous serez directement redirigés vers la page d'authentification pour vous "loguer</h2>
+            <h2>Une fois votre compte créé/modifié, vous serez directement redirigés vers la page d'authentification pour vous loguer</h2>
         </div>
     </div>
 </div>

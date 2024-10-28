@@ -23,47 +23,47 @@ namespace ForumDiscussion.Controllers
         }
 
 
-        public  IActionResult Index()
+        public IActionResult Index()
         {
             List<SectionListVM> sectionListVMs = new List<SectionListVM>();
 
             List<Section> sections = _forumContext.Section.ToList();
-            Dictionary<int, List<MessageModel>> messagesParSujets = new Dictionary<int, List<MessageModel>>();
-            List<MessageModel> messages = new List<MessageModel>();
-            List<MessageModel> derniersMessages = new List<MessageModel>();
-            List<Membre> membres = _forumContext.Membre.ToList();
 
-            for (int i = 0; i < sections.Count; i++)
+            if (sections == null || sections.Count == 0)
+                return View(sectionListVMs); // Retourne une vue vide si aucune section n'est trouvée
+
+            foreach (var section in sections)
             {
-                
-                List<Sujet> sujets = _forumContext.Sujet.Where(x => x.SectionId == sections[i].Id).ToList();
-                int nbSujets = sujets.Count;
-                MessageModel dernierMessagePossible = new MessageModel();
-                MessageModel dernierMessage = new MessageModel();
-                for (int j = 0; j < nbSujets; j++)
+                // Obtenir tous les sujets de la section
+                List<Sujet> sujets = _forumContext.Sujet.Where(s => s.SectionId == section.Id).ToList();
+                int nbSujets = sujets.Count; // Nombre de sujets dans la section
+
+                // Récupérer tous les messages de chaque sujet de la section
+                List<MessageModel> messages = sujets
+                    .SelectMany(su => _forumContext.Message.Where(m => m.SujetId == su.Id))
+                    .ToList();
+
+                int nbMessages = messages.Count; // Nombre total de messages dans la section
+
+                // Trouver le dernier message par date de publication
+                MessageModel dernierMessage = messages
+                    .Where(m => m != null)
+                    .OrderByDescending(m => m.DatePublication)
+                    .FirstOrDefault();
+
+                // Si un dernier message est trouvé, obtenir les informations de l'auteur
+                if (dernierMessage != null)
                 {
-                    messages = _forumContext.Message.Where(m => m.SujetId == sujets[j].Id).ToList();
-                    messagesParSujets.Add(j, messages);
+                    dernierMessage.Auteur = _forumContext.Membre
+                        .FirstOrDefault(m => m.Id == dernierMessage.AuteurId);
                 }
-                int nbMessages = messagesParSujets.Count;
-                for (int k = 0; k < nbMessages; k++)
-                {
-                    dernierMessagePossible = messagesParSujets[k].OrderByDescending(dm => dm.DatePublication).First();
-                    derniersMessages.Add(dernierMessagePossible);
-                }
-                for (int L = 0;L < derniersMessages.Count; L++)
-                {
-                    dernierMessage = derniersMessages.OrderByDescending(dm => dm.DatePublication).First();
-                }
-                dernierMessage.Auteur = _forumContext.Membre.Where(m => m.Id == dernierMessage.AuteurId).FirstOrDefault();
-                messagesParSujets.Clear();
-                derniersMessages.Clear();
-                sectionListVMs.Add(new SectionListVM(sections[i], nbSujets, nbMessages, dernierMessage));
+
+                sectionListVMs.Add(new SectionListVM(section, nbSujets, nbMessages, dernierMessage));
             }
 
-            
-             return  View(sectionListVMs);
+            return View(sectionListVMs);
         }
+
 
         public IActionResult Privacy()
         {

@@ -1,0 +1,18 @@
+﻿@model ForumDiscussion.Models.Sujet
+
+@{
+    ViewData["Title"] = "Supprimer le sujet";
+}
+
+<h2>Supprimer le sujet</h2>
+
+<div>
+    <p>Voulez-vous vraiment supprimer le sujet intitulé <strong>@Model.Titre</strong> ?</p>
+    <p>Cette action est irréversible.</p>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+        <a asp-action="List" asp-route-idSection="@Model.SectionId" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>

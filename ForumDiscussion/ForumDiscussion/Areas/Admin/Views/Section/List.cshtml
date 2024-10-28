@@ -19,6 +19,25 @@
 
         <div class="row">
 
+            <form method="get" class="mb-3">
+                <div class="form-group">
+                    <label for="filter">Filtrer par titre :</label>
+                    <input type="text" name="filter" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Rechercher une section..." />
+                </div>
+
+                <div class="form-group">
+                    <label for="sortOrder">Trier par :</label>
+                    <select name="sortOrder" class="form-control" onchange="this.form.submit()">
+                        <option value="ordre_asc" selected="@(ViewData["CurrentSort"] as string == "ordre_asc")">Affichage par titre croissant</option>
+                        <option value="ordre_desc" selected="@(ViewData["CurrentSort"] as string == "ordre_desc")">Afficchage par titre décroissant</option>
+
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-2">Appliquer</button>
+            </form>
+
+
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
                     <th class="description">@Html.DisplayNameFor(model => model[0].Titre)</th>
@@ -62,8 +81,6 @@
                 <a asp-action="Create" class="btn btn-primary">Ajouter une section</a>
             </div>
         </div>
-
-        @* <p><a asp-action="Create">Ajouter un choix Menu</a></p> *@
     </div>
 </div>
 </div>

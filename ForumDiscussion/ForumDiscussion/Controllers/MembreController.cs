@@ -36,56 +36,45 @@ namespace ForumDiscussion.Controllers
         [HttpPost]
         public IActionResult Create(Membre? membre, IFormFile uploadfile)
         {
-            if (membre != null && uploadfile != null && uploadfile.Length > 0)
+            if (membre != null)
             {
                 //On ne peut pas avoir deux membres avec le meme username
                 Membre? existingMembre = _forumContext.Membre.Where(m => m.Username == membre.Username).FirstOrDefault();
 
                 if (existingMembre != null)  //Je pense que le "remote" le fait déja !
                 {
-                    return View("SiteMessage", new SiteMessageVM
-                    {
-                        Message = "Ce nom d'utilisateur est déja existant !"
-                    });
+                    ModelState.AddModelError("Username", "Ce nom d'utilisateur existe déjà !");
                 }
+            }
 
-
+            if (uploadfile != null && uploadfile.Length > 0)
+            {
                 string extension = Path.GetExtension(uploadfile.FileName).ToLower();
                 string filename = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
+
                 string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img\\Members", filename);
 
                 using FileStream stream = System.IO.File.Create(pathToSave);
                 uploadfile.CopyTo(stream);
-                if (filename != null) {membre.Profil = filename; }
-                else
-                {
-                    return View("SiteMessage", new SiteMessageVM
-                    {
-                        Message = "L'image de profil est inexistant!"
-                    });
-                }
-                
 
-                ModelStateEntry? imagePathModelState = ModelState["Profil"];
-                if (imagePathModelState != null)
-                {
-                    imagePathModelState.ValidationState = ModelValidationState.Valid;
-                }
+                membre.Profil = filename;
             }
 
-            if (ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
-                membre.Role = Membre.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
 
-                membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
-
-                _forumContext.Add(membre);
-                _forumContext.SaveChanges();
-
-                //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
-                return RedirectToAction("Login", "Auth", new { Area = "" });
+                return View("CreateEdit", membre);
             }
-            return View("CreateEdit", membre);
+
+            membre.Role = Membre.ROLE_STANDARD; //Ne donner aucun choix pour le rôle : obligatoirement « Standard ».
+            membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
+
+            _forumContext.Add(membre);
+            _forumContext.SaveChanges();
+
+            //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
+            return RedirectToAction("Login", "Auth", new { Area = "" });
         }
 
 
@@ -107,12 +96,23 @@ namespace ForumDiscussion.Controllers
                 }
             }
 
-            return View("SiteMessage", new SiteMessageVM
+            return View("SiteMessageVM", new SiteMessageVM("\"Id de membre intouvable ou incorrecte !"));
+
+        }
+
+        public IActionResult Edit(int id)
+        {
+            if (id > 0)
             {
-                Message = "Id de membre intouvable ou incorrecte !"
-            });
+                Membre? membre = _forumContext.Membre.Find(id);
 
+                if (membre != null)
+                {
+                    return View("CreateEdit", membre);
+                }
+            }
 
+            return View("SiteMessageVM", new SiteMessageVM("L'identifiant de ce membre est introuvable ou ce membre n'existe pas ."));
         }
 
 
@@ -120,34 +120,63 @@ namespace ForumDiscussion.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Membre membre, IFormFile uploadfile)
         {
-            if (membre != null)
-            {
-                Membre? existingMembre = _forumContext.Membre.Find(membre.Id);
-                if (existingMembre != null && ModelState.IsValid)
+            
+                //Vérifie s'il n'existe pas un autre memebre avec le même username
+                Membre? existingMembre = _forumContext.Membre.FirstOrDefault(m=> m.Username == membre.Username);
+                if (existingMembre != null && existingMembre.Id != membre.Id)
                 {
+                    ModelState.AddModelError("Membre.Username", "Ce nom d'utilisateur existe déjà pour un autre utilisateur.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+
+                    return View("CreateEdit", membre);
+                }
+
+                var originalMembre = _forumContext.Membre.Find(membre.Id);
+                if(originalMembre != null)
+                {
+                    // Mettre à jour les champs nécessaires
+                    originalMembre.Username = membre.Username;
+                    originalMembre.Courriel = membre.Courriel;
+                    originalMembre.Role = membre.Role;
+
+                    // Mettre à jour le mot de passe uniquement si une nouvelle valeur est fournie
+                    if (!string.IsNullOrWhiteSpace(membre.MotDePasse))
+                    {
+                        originalMembre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
+                    }
+
+
+                //Mettre le profil à jour !
+                if (uploadfile != null && uploadfile.Length > 0)
+                {
+                    string extension = Path.GetExtension(uploadfile.FileName).ToLower();
+                    string filename = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
+
+                    string pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img\\Members\\", filename);
+
+                    using FileStream stream = System.IO.File.Create(pathToSave);
+                    uploadfile.CopyTo(stream);
+
+                    originalMembre.Profil = filename;
+                }
+
+                _forumContext.SaveChanges();
+
                     // Déconnexion de l'utilisateur
                     HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-
-                    //Le membre change de mot de passe: comme modification de profil
-                    membre.MotDePasse = CryptographyHelper.HashPassword(membre.MotDePasse);
-
-                    _forumContext.SaveChanges();
 
                     //Directement l'utilisateur est invité à se loguer avec son nouveau compte !
                     return RedirectToAction("Login", "Auth", new { Area = "" });
                 }
                 else
                 {
-                    return View("SiteMessage", new SiteMessageVM
-                    {
-                        Message = "Id de l'utilisateur introuvabkle ou inexistant"
-                    });
+                    return View("SiteMessageVM", new SiteMessageVM("\"Id de membre intouvable ou incorrecte !"));
                 }
             }
-
-            return RedirectToAction("List");
-        }
     }
 }
 

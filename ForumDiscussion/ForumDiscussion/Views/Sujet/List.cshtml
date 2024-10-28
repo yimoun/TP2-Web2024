@@ -1,7 +1,7 @@
-﻿
-@model List<SujetListVM>
+﻿@model SujetListSectionVM
 @{
     ViewData["Title"] = "choix de Sujet";
+    var userId = User.FindFirst(System.Security.Claims.ClaimTypes.Sid)?.Value;
 }
 
 <div id="dashboard-page" class="container">
@@ -19,15 +19,33 @@
 
             <table class="table table-sm table-bordered table-striped table-hover">
                 <tr>
-                    <th class="description">@Html.DisplayNameFor(model => model[0].Sujet.Titre)</th>
+                    <th class="action">Actions</th>
+                    <th class="description">@Html.DisplayNameFor(model => model.sujetListVMs[0].Sujet.Titre)</th>
                     <th class="description">Réponse</th>
                     <th class="description">Dernier Message</th>
+
                 </tr>
-                @if (Model.Count > 0)
+                @if (Model.sujetListVMs.Count > 0)
                 {
-                    foreach (SujetListVM sujetVM in Model)
+                    foreach (SujetListVM sujetVM in Model.sujetListVMs)
                     {
                         <tr>
+                            <td>
+                                @if (sujetVM.Sujet.MembreId.ToString() == userId) 
+                                {
+                                    <a asp-action="Edit" asp-controller="Sujet" asp-route-id="@sujetVM.Sujet.Id" class="btn btn-warning">
+                                        Modifier 
+                                    </a>
+                                    
+                                    <a asp-action="Delete" asp-controller="Sujet" asp-route-id="@sujetVM.Sujet.Id" class="btn btn-outline-danger">
+                                        Supprimer
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span>Aucune action dispo car vous n'en êtes pas l'auteur</span>
+                                }
+                            </td>
                             <td class="description">
                                 <a asp-action="List" asp-controller="Mess" asp-route-idSujet="@sujetVM.Sujet.Id">@Html.DisplayFor(model => sujetVM.Sujet.Titre)</a><br>
                                 par @Html.DisplayFor(model => sujetVM.Sujet.Auteur) » @Html.DisplayFor(model => sujetVM.Sujet.DateCreation)
@@ -35,10 +53,20 @@
                             <td class="description">
                                 @Html.DisplayFor(model => sujetVM.NbReponses)
                             </td>
-                            <td class="description">
-                                par @Html.DisplayFor(model => sujetVM.DernierMessage.Auteur.Username)<br />
-                                @Html.DisplayFor(model => sujetVM.DernierMessage.DatePublication.Date)
-                            </td>
+                            @if(sujetVM.DernierMessage != null)
+                            {
+                                <td class="description">
+                                    par @Html.DisplayFor(model => sujetVM.DernierMessage.Auteur.Username)<br /> à
+                                    @Html.DisplayFor(model => sujetVM.DernierMessage.DatePublication.Date)
+                                </td>
+                            }
+                           else
+                            {
+                                <td class="description">
+                                    Pas encore de message pour ce sujet
+                                </td>
+                            }
+                            
                         </tr>
                     }
                 }
@@ -55,7 +83,9 @@
             @if ((User?.Identity?.IsAuthenticated ?? false)) //Uniquement disponible lorsque le visiteur est connecté
             {
                 <div class="col-md-12">
-                    <a asp-action="Create" class="btn btn-primary">Nouveau Sujet</a>
+
+                    <a asp-action="Create" asp-controller="Sujet" asp-route-idSection="@Model.IdSection" class="btn btn-primary">Nouveau Sujet</a>
+
                 </div>
             }
             else
